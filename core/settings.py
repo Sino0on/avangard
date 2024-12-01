@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
+    "drf_spectacular",
+    'objects',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -121,6 +124,58 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
+
+
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+        # "rest_framework_simplejwt.authentication.JWTAuthentication",
+
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.IsAuthenticated",
+    ],
+    # "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+    ],
+    'DEFAULT_PARSER_CLASSES': (
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.FormParser'
+    ),
+    "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "DEFAULT_THROTTLE_RATES": {
+        "auth": '3/min',
+    }
+}
+
+if DEBUG:
+    REST_FRAMEWORK["DEFAULT_AUTHENTICATION_CLASSES"].append("rest_framework.authentication.BasicAuthentication")
+
+# OpenAPI settings
+
+SPECTACULAR_SETTINGS = {
+    "TITLE": "AVANGARD OpenAPI",
+    "DESCRIPTION": "Описание нашего API в разработке...",
+    'COMPONENT_SPLIT_REQUEST': True,
+    "VERSION": "1.0.0",
+    "SCHEMA_PATH_PREFIX": r"/api/v[0-9]",
+    "SERVE_PERMISSIONS": ("rest_framework.permissions.IsAdminUser", ),
+    "SERVE_AUTHENTICATION": ('rest_framework.authentication.SessionAuthentication',
+                             'rest_framework.authentication.BasicAuthentication'),
+    "PREPROCESSING_HOOKS": ("openapi.preprocessors.get_urls_preprocessor",),
+    "SWAGGER_UI_SETTINGS": {
+        "docExpansion": "none",  # 'none' | 'list' | 'full'
+    },
+    "ENUM_NAME_OVERRIDES": {
+        "RatingsEnum": "apps.autoanswers.models.RatingChoices",
+        "CountMonthsEnum": "api.billing.serializers.PeriodChoices",
+    },
+    "SERVE_PERMISSIONS": ("rest_framework.permissions.AllowAny",)
+}
 
 
 # Internationalization
