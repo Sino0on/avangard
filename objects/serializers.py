@@ -25,11 +25,11 @@ class InterestingNearbyBuildingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InterestingNearbyBuilding
-        fields = '__all__'
+        fields = ['id', 'interesting_nearby']
 
 
 class BuildingSerializer(serializers.ModelSerializer):
-    interetes_places = InterestingNearbyBuildingSerializer(source='interetes')
+    interetes_places = InterestingNearbyBuildingSerializer(many=True, source='interetes')
 
     class Meta:
         model = Building
@@ -39,4 +39,4 @@ class BuildingSerializer(serializers.ModelSerializer):
 class BuildingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
-        fields = ['title', 'banner']
+        fields = ['id', 'title', 'banner']

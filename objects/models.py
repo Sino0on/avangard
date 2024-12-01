@@ -6,17 +6,26 @@ class InterestingNearby(models.Model):
     image = models.ImageField(upload_to='images/other/')
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.title}'
+
 
 # Жилой комплекс или резиденция итд
 class Categry(models.Model):
     title = models.CharField(max_length=123)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.title}'
+
 
 class Advantage(models.Model):
     title = models.CharField(max_length=123)
     svg = models.FileField(upload_to='svg/')
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 class Building(models.Model):
@@ -48,6 +57,12 @@ class Building(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        ordering = ['-created_at']
+
 
 
 class InterestingNearbyBuilding(models.Model):
@@ -55,7 +70,8 @@ class InterestingNearbyBuilding(models.Model):
     building = models.ForeignKey(Building, models.PROTECT, related_name='interetes')
     interesting_nearby = models.ForeignKey(InterestingNearby, models.PROTECT)
 
-
+    def __str__(self):
+        return f'{self.building} - {self.interesting_nearby}'
 
 
 
