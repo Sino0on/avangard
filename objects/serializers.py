@@ -37,7 +37,7 @@ class InterestingNearbyBuildingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = InterestingNearbyBuilding
-        fields = ['id', 'interesting_nearby']
+        fields = ['id', 'building']
 
 class Section1Serializer(serializers.ModelSerializer):
     class Meta:
