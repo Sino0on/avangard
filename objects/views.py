@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
@@ -15,5 +16,12 @@ class BuildingDetailApiView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = BuildingSerializer
     queryset = Building.objects.all()
-    lookup_field = 'pk'
+    lookup_field = 'slug'
+
+    def get_queryset(self):
+        slug = self.kwargs.get('slug')
+        queryset = Building.objects.filter(slug=slug)
+        if not queryset.exists():
+            raise Http404("Категория не существует")
+        return queryset
 

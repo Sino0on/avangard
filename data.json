@@ -1,0 +1,38 @@
+{
+  "fasad": [
+    {
+      "title": "название",
+      "description": "описание"
+    },
+    {
+      "title": "название",
+      "description": "описание"
+    },
+    {
+      "title": "название",
+      "description": "описание"
+    },
+    {
+      "title": "название",
+      "description": "описание"
+    }
+  ],
+  "material": [
+    {
+      "title": "название",
+      "description": "описание"
+    },
+    {
+      "title": "название",
+      "description": "описание"
+    },
+    {
+      "title": "название",
+      "description": "описание"
+    },
+    {
+      "title": "название",
+      "description": "описание"
+    }
+  ]
+}
