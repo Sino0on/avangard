@@ -20,7 +20,14 @@ class ArchitectureSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class BlockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = BlockInfo
+        fields = '__all__'
+
+
 class FloorSchemaSerializer(serializers.ModelSerializer):
+    blocks = BlockSerializer(many=True)
     class Meta:
         model = FloorSchema
         fields = '__all__'
