@@ -33,7 +33,7 @@ class AdvantageSerializer(serializers.ModelSerializer):
 
 
 class InterestingNearbyBuildingSerializer(serializers.ModelSerializer):
-    building = InterestingNearbySerializer(many=True)
+    building = InterestingNearbySerializer()
 
     class Meta:
         model = InterestingNearbyBuilding
