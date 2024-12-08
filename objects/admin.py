@@ -101,8 +101,12 @@ class ImageAdmin(admin.ModelAdmin):
 
 
 
+@admin.register(Architecture)
+class ArchitectureAdmin(admin.ModelAdmin):
+    filter_vertical = ('advantages',)
+
 admin.site.register(BlockInfo)
-admin.site.register(Architecture)
+# admin.site.register(Architecture)
 admin.site.register(Features)
 admin.site.register(InterestingNearbyBuilding)
 admin.site.register(InterestingNearby)
