@@ -39,6 +39,12 @@ class AdvantageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ImageGallerySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImageGallery
+        fields = '__all__'
+
+
 class InterestingNearbyBuildingSerializer(serializers.ModelSerializer):
     building = InterestingNearbySerializer()
 
@@ -79,6 +85,7 @@ class Section6Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Section7Serializer(serializers.ModelSerializer):
+    images = ImageGallerySerializer(many=True)
     class Meta:
         model = Section7
         fields = '__all__'
