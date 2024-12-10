@@ -72,6 +72,7 @@ class Section11Inline(admin.StackedInline):
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
+    exclude = ['slug']
     inlines = [
         SectionInline,
         Section2Inline,
@@ -103,7 +104,7 @@ class ImageAdmin(admin.ModelAdmin):
 
 @admin.register(Architecture)
 class ArchitectureAdmin(admin.ModelAdmin):
-    filter_vertical = ('advantages',)
+    filter_vertical = ('features',)
 
 admin.site.register(BlockInfo)
 # admin.site.register(Architecture)

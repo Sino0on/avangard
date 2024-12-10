@@ -136,3 +136,12 @@ class BuildingListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
         fields = ['slug', 'title', 'banner']
+
+
+class BuildingEndedSerializer(serializers.ModelSerializer):
+    section1 = Section1Serializer(source='section_1')
+    section7 = Section7Serializer(source='section_7')
+
+    class Meta:
+        model = Building
+        fields = ['title', 'mini_title', 'slug', 'section7', 'section1']
