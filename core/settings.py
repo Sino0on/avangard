@@ -359,3 +359,44 @@ JAZZMIN_SETTINGS = {
     "changeform_format_overrides": {"authentication.User": "collapsible", "auth.Group": "vertical_tabs"},
 }
 
+
+CKEDITOR_CONFIGS = {
+    'default': {
+        'skin': 'moono-lisa',  # Современный стиль интерфейса
+        'toolbar_Basic': [
+            ['Bold', 'Italic', '-', 'NumberedList', 'BulletedList', '-', 'Link', 'Unlink'],
+        ],
+        'toolbar_Full': [
+            {'name': 'document', 'items': ['Source', '-', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates']},
+            {'name': 'clipboard', 'items': ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo']},
+            {'name': 'editing', 'items': ['Find', 'Replace', '-', 'SelectAll', '-', 'SpellChecker']},
+            {'name': 'basicstyles', 'items': ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat']},
+            {'name': 'paragraph', 'items': ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote']},
+            {'name': 'links', 'items': ['Link', 'Unlink', 'Anchor']},
+            {'name': 'insert', 'items': ['Image', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar']},
+            {'name': 'styles', 'items': ['Styles', 'Format', 'Font', 'FontSize']},
+            {'name': 'colors', 'items': ['TextColor', 'BGColor']},
+            {'name': 'tools', 'items': ['Maximize', 'ShowBlocks']},
+        ],
+        'toolbar': 'Full',  # Используется полный набор инструментов
+        'height': 300,  # Высота редактора
+        'width': '100%',  # Ширина редактора
+        'tabSpaces': 4,  # Количество пробелов для табуляции
+        'extraPlugins': ','.join([
+            'uploadimage',  # Загрузка изображений
+            'div',  # Поддержка разделов
+            'autolink',  # Автоссылки
+            'autoembed',  # Встраивание мультимедиа
+            'embed',  # Встраивание медиафайлов
+            'embedsemantic',  # Улучшенное встраивание
+            'autogrow',  # Автоматическое изменение высоты редактора
+            'image2',  # Новый диалог загрузки изображений
+            'codesnippet',  # Поддержка кода
+        ]),
+        'removePlugins': 'stylesheetparser',  # Отключение парсинга стилей
+        'allowedContent': True,  # Разрешить все теги HTML
+    }
+}
+
+# Настройка URL для CKEditor
+CKEDITOR_RESTRICT_BY_USER = True
