@@ -44,3 +44,17 @@ class BuildingEndedDetailApiView(generics.RetrieveAPIView):
         if not queryset.exists():
             raise Http404("Категория не существует")
         return queryset
+
+
+
+class ConstructionProgressApiView(generics.ListAPIView):
+    serializer_class = ConstructionProgressSerializer
+    permission_classes = [AllowAny]
+
+    def get_queryset(self):
+        """
+        Возвращает список ConstructionProgress, связанных с конкретным Building.
+        """
+        building_id = self.kwargs.get('building_id')
+        return ConstructionProgress.objects.filter(building_id=building_id)
+

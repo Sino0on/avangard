@@ -43,6 +43,9 @@ INSTALLED_APPS = [
     'rest_framework',
     "drf_spectacular",
     'objects',
+    'news',
+    'info',
+    'ckeditor',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

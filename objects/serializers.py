@@ -145,3 +145,16 @@ class BuildingEndedSerializer(serializers.ModelSerializer):
     class Meta:
         model = Building
         fields = ['title', 'mini_title', 'slug', 'section7', 'section1']
+
+
+class ConstructionProgressImageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ConstructionProgressImage
+        fields = ['image']
+
+class ConstructionProgressSerializer(serializers.ModelSerializer):
+    images = ConstructionProgressImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = ConstructionProgress
+        fields = ['id', 'month', 'year', 'images']

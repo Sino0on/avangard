@@ -261,3 +261,61 @@ class Features(models.Model):
     class Meta:
         verbose_name = 'Функция'
         verbose_name_plural = 'Функции'
+
+
+class ConstructionProgress(models.Model):
+    MONTH_CHOICES = [
+        (1, "Январь"),
+        (2, "Февраль"),
+        (3, "Март"),
+        (4, "Апрель"),
+        (5, "Май"),
+        (6, "Июнь"),
+        (7, "Июль"),
+        (8, "Август"),
+        (9, "Сентябрь"),
+        (10, "Октябрь"),
+        (11, "Ноябрь"),
+        (12, "Декабрь"),
+    ]
+    building = models.ForeignKey(
+        Building,
+        on_delete=models.CASCADE,
+        related_name="construction_progress",
+        verbose_name="Здание"
+    )
+    month = models.PositiveSmallIntegerField(
+        choices=MONTH_CHOICES,
+        verbose_name="Месяц"
+    )
+    year = models.PositiveIntegerField(
+        choices=[(i, f"{i:02d}") for i in range(2010, 2070)],
+        verbose_name="Год"
+    )
+
+    class Meta:
+        verbose_name = "Динамика строительства"
+        verbose_name_plural = "Динамика строительства"
+        ordering = ['-year', '-month']  # Сортировка по году и месяцу
+
+    def __str__(self):
+        return f"{self.building} - {self.get_month_display()} {self.year}"
+
+class ConstructionProgressImage(models.Model):
+    construction_progress = models.ForeignKey(
+        ConstructionProgress,
+        on_delete=models.CASCADE,
+        related_name="images",
+        verbose_name="Динамика строительства"
+    )
+    image = models.ImageField(
+        upload_to="images/construction_progress/",
+        verbose_name="Изображение"
+    )
+
+    class Meta:
+        verbose_name = "Изображение динамики строительства"
+        verbose_name_plural = "Изображения динамики строительства"
+
+    def __str__(self):
+        return f"Изображение для {self.construction_progress}"

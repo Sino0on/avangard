@@ -112,3 +112,23 @@ admin.site.register(Features)
 admin.site.register(InterestingNearbyBuilding)
 admin.site.register(InterestingNearby)
 admin.site.register(Category)
+
+class ConstructionProgressImageInline(admin.TabularInline):
+    model = ConstructionProgressImage
+    extra = 1  # Количество пустых строк для добавления изображений
+    fields = ['image']
+    verbose_name = "Изображение"
+    verbose_name_plural = "Изображения"
+
+@admin.register(ConstructionProgress)
+class ConstructionProgressAdmin(admin.ModelAdmin):
+    list_display = ('building', 'month', 'year')
+    list_filter = ('year', 'month', 'building')
+    search_fields = ('building__name',)
+    inlines = [ConstructionProgressImageInline]
+
+    # Настраиваем формы для выбора месяца и года
+    def formfield_for_choice_field(self, db_field, request, **kwargs):
+        if db_field.name == "month":
+            kwargs['choices'] = ConstructionProgress.MONTH_CHOICES
+        return super().formfield_for_choice_field(db_field, request, **kwargs)
