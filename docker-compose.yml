@@ -13,7 +13,7 @@ services:
   app:
     build: .
     volumes:
-      - .:/core
+      - ./media:/app/media
     ports:
       - "8000:8000"
     command: bash -c "python manage.py collectstatic --no-input && python manage.py showmigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"

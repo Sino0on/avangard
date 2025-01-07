@@ -7,6 +7,7 @@ from .serializers import ContactsSerializer, TechnicalBaseSerializer
 
 class GetContactInfoApiView(APIView):
     permission_classes = [AllowAny]
+
     def get(self, request, *args, **kwargs):
         contact = Contacts.load()  # Загружаем единственный экземпляр Contacts
         serializer = ContactsSerializer(contact)

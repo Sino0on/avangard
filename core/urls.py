@@ -9,6 +9,7 @@ urlpatterns = [
     path("api/v1/objects/", include("objects.urls")),
     path("api/v1/news/", include("news.urls")),
     path("api/v1/contact/", include("info.urls")),
+    path("api/v1/home/", include("home.urls")),
     path('admin/', admin.site.urls),
     # path("i18n/", include("django.conf.urls.i18n")),
     path("docs/", include("openapi.urls")),
