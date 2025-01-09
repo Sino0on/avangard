@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'news',
     'info',
     'ckeditor',
+    'home'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -108,6 +109,12 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / "db.sqlite3",
+#     }
+# }
 
 
 # Password validation

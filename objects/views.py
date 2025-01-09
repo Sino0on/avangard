@@ -58,3 +58,7 @@ class ConstructionProgressApiView(generics.ListAPIView):
         building_id = self.kwargs.get('building_id')
         return ConstructionProgress.objects.filter(building_id=building_id)
 
+
+class ObjectsForHomeApiView(generics.ListAPIView):
+    serializer_class = ObjectsForHomeSerializer
+    permission_classes = [AllowAny]

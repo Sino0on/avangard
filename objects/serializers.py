@@ -114,18 +114,19 @@ class Section11Serializer(serializers.ModelSerializer):
         model = Section11
         fields = '__all__'
 
+
 class BuildingSerializer(serializers.ModelSerializer):
-    section1 = Section1Serializer(source='section_1')
-    section2 = Section2Serializer(source='section_2')
-    section3 = Section3Serializer(source='section_3')
-    section4 = Section4Serializer(source='section_4')
-    section5 = Section5Serializer(source='section_5')
-    section6 = Section6Serializer(source='section_6')
-    section7 = Section7Serializer(source='section_7')
-    section8 = Section8Serializer(source='section_8')
-    section9 = Section9Serializer(source='section_9')
-    section10 = Section10Serializer(source='section_10')
-    section11 = Section11Serializer(source='section_11')
+    about_complex = Section1Serializer(source='section_1')
+    object_metrics = Section2Serializer(source='section_2')
+    before_after = Section3Serializer(source='section_3')
+    floor_plans = Section4Serializer(source='section_4')
+    parking_plan = Section5Serializer(source='section_5')
+    architecture = Section6Serializer(source='section_6')
+    gallery = Section7Serializer(source='section_7')
+    advantages = Section8Serializer(source='section_8')
+    interest_nearby = Section9Serializer(source='section_9')
+    location = Section10Serializer(source='section_10')
+    footer = Section11Serializer(source='section_11')
 
     class Meta:
         model = Building
@@ -158,3 +159,9 @@ class ConstructionProgressSerializer(serializers.ModelSerializer):
     class Meta:
         model = ConstructionProgress
         fields = ['id', 'month', 'year', 'images']
+
+
+class ObjectsForHomeSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = ['title', 'slug']
+        model = Building
