@@ -53,12 +53,12 @@ class Advantage(models.Model):
 class Building(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='Слаг')
     title = models.CharField(max_length=123, verbose_name='Название')
-    mini_title = models.CharField(max_length=123)
+    mini_title = models.CharField(max_length=123, verbose_name='Серия')
     status = models.CharField(max_length=123, choices=(
         ("active", "В процессе"),
         ("archive", "Архив"),
         ("ended", "Реализовано"),
-    ))
+    ), verbose_name='Статус')
     banner = models.FileField(upload_to='images/banners/')
     buklet = models.FileField(upload_to='files/buklets/')
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
