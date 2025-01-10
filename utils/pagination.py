@@ -13,7 +13,7 @@ class MyCustomPagination(PageNumberPagination):
             },
             'total': self.page.paginator.count,
             'page': self.page.number,
-            'pages': self.page_size,
+            # 'pages': self.page_size,
             'limit': self.get_page_size(self.request),
             'results': data
         })
