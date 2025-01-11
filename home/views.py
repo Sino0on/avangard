@@ -9,6 +9,7 @@ from rest_framework import generics
 
 class GetHomeInfoApi(generics.GenericAPIView):
     permission_classes = [AllowAny]
+    serializer_class = HomeInfoSerializer
 
     def get(self, request, *args, **kwargs):
         contact = HomeInfo.load()  # Загружаем единственный экземпляр Contacts

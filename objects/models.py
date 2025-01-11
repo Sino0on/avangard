@@ -181,7 +181,6 @@ class Section6(models.Model):
 
 
 class Section7(models.Model):
-    images = models.ManyToManyField('ImageGallery')
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_7')
 
     class Meta:
@@ -231,6 +230,7 @@ class Section11(models.Model):
 
 class ImageGallery(models.Model):
     image = models.ImageField(upload_to='images/gallery/')
+    section7 = models.ForeignKey(Section7, related_name='section_images', on_delete=models.CASCADE, blank=True, null=True)
 
 
 class FloorSchema(models.Model):

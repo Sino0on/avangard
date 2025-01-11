@@ -11,7 +11,6 @@ class HomeInfo(SingletonModel):
     first_value = models.CharField(max_length=123)
     second_value = models.CharField(max_length=123)
     third_value = models.CharField(max_length=123)
-    address = RichTextField()
 
     def __str__(self):
         return 'Домашняя страница'
@@ -20,3 +19,11 @@ class HomeInfo(SingletonModel):
         verbose_name = "Домашняя страница"
         verbose_name_plural = "Домашняя страница"
 
+
+class Address(models.Model):
+    link = models.URLField()
+    title = models.CharField(max_length=255)
+    home = models.ForeignKey(HomeInfo, on_delete=models.CASCADE, related_name='addresses')
+
+    def __str__(self):
+        return f"{self.title}"

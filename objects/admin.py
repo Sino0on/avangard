@@ -30,10 +30,19 @@ class Section6Inline(admin.StackedInline):
     extra = 0
     filter_horizontal = ('architecture',)
 
+class ImaegsInline(admin.TabularInline):
+    model = ImageGallery
+    extra = 1  # Количество пустых строк для добавления новых реквизитов
+    fields = ['image']
+    # verbose_name = "Реквизиты в сомах"
+    # verbose_name_plural = "Реквизиты в сомах"
+
+
 class Section7Inline(admin.StackedInline):
     model = Section7
     extra = 0
-    filter_horizontal = ('images',)
+
+    inlines = [ImaegsInline]
 
     def images(self, obj):
         # Формируем список миниатюр всех изображений, связанных с Section4
@@ -46,7 +55,7 @@ class Section7Inline(admin.StackedInline):
         return "No images"
 
 
-    list_display = ['images']
+    list_display = ['image']
 
 
 class Section8Inline(admin.StackedInline):
