@@ -10,11 +10,15 @@ class NewsImagesSerializer(serializers.ModelSerializer):
 
 class NewsSerializer(serializers.ModelSerializer):
     main_image = serializers.ImageField()
+    created_at = serializers.SerializerMethodField()
 
     class Meta:
         model = News
         fields = ['main_image', 'slug', 'title', 'created_at']
 
+    def get_created_at(self, obj):
+        # Преобразование даты в формат ДД.ММ.ГГГГ
+        return obj.created_at.strftime('%d.%m.%Y')
 
 class NewsDetailSerializer(serializers.ModelSerializer):
     main_image = serializers.ImageField()
