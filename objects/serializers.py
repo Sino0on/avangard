@@ -85,7 +85,7 @@ class Section6Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Section7Serializer(serializers.ModelSerializer):
-    images = ImageGallerySerializer(many=True)
+    images = ImageGallerySerializer(many=True, source='section_images')
     class Meta:
         model = Section7
         fields = '__all__'
