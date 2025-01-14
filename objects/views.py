@@ -8,6 +8,7 @@ from rest_framework.permissions import AllowAny
 from unicodedata import category
 from yaml import safe_load
 
+from utils.pagination import MyCustomPagination
 from .models import *
 from .serializers import *
 
@@ -49,7 +50,9 @@ class BuildingDetailApiView(generics.RetrieveAPIView):
 class BuildingEndedApiView(generics.ListAPIView):
     permission_classes = (AllowAny,)
     serializer_class = BuildingListSerializer
+    pagination_class = MyCustomPagination
     queryset = Building.objects.filter(status='ended')
+
 
     def get_queryset(self):
         category_id = self.request.GET.get('category_id')
