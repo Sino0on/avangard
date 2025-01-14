@@ -76,7 +76,7 @@ class NewsImages(models.Model):
 class LinkNews(models.Model):
     title = models.CharField(max_length=255, verbose_name="Заголовок")
     url = models.URLField(verbose_name="URL")
-    image = models.ImageField(upload_to='images/link_news/', verbose_name="Изображение")
+    image = models.FileField(upload_to='images/link_news/', verbose_name="Изображение")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     class Meta:
