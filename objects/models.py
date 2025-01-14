@@ -64,6 +64,7 @@ class Building(models.Model):
     imagebg = models.ImageField(upload_to='images/bgs/')
     buklet = models.FileField(upload_to='files/buklets/')
     category = models.ForeignKey(Category, on_delete=models.PROTECT)
+    is_new = models.BooleanField(default=False)
 
     # section 1
 
