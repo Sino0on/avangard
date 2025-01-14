@@ -31,7 +31,12 @@ class NewsDetailSerializer(serializers.ModelSerializer):
 
 class LinkNewsSerializer(serializers.ModelSerializer):
     image = serializers.ImageField()
+    created_at = serializers.SerializerMethodField()
 
     class Meta:
         model = LinkNews
         fields = ['title', 'url', 'image', 'created_at']
+
+    def get_created_at(self, obj):
+        # Преобразование даты в формат ДД.ММ.ГГГГ
+        return obj.created_at.strftime('%d.%m.%Y')
