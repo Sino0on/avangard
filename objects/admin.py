@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import *
+from .models import Building, Section1, Section2, Section7, Section4, Section5, Section3, Section6, Section8, Section9, Section10, Section11, ImageGallery, Advantage, FloorSchema, Architecture, Category, ConstructionProgress, InterestingNearbyBuilding, InterestingNearby, BlockInfo, Features, ConstructionProgressImage
 from django.utils.html import format_html
+import nested_admin
 
 
 
@@ -30,7 +31,7 @@ class Section6Inline(admin.StackedInline):
     extra = 0
     filter_horizontal = ('architecture',)
 
-class ImaegsInline(admin.TabularInline):
+class ImaegsInline(nested_admin.NestedStackedInline):
     model = ImageGallery
     extra = 1  # Количество пустых строк для добавления новых реквизитов
     fields = ['image']
@@ -38,24 +39,24 @@ class ImaegsInline(admin.TabularInline):
     # verbose_name_plural = "Реквизиты в сомах"
 
 
-class Section7Inline(admin.StackedInline):
+class Section7Inline(nested_admin.NestedStackedInline):
     model = Section7
     extra = 0
 
     inlines = [ImaegsInline]
 
-    def images(self, obj):
-        # Формируем список миниатюр всех изображений, связанных с Section4
-        images = obj.gallery.all()  # Предполагаем, что gallery - это ManyToManyField
-        if images:
-            return format_html(' '.join(
-                f'<img src="{image.image.url}" style="max-width: 100px; max-height: 100px; margin-right: 5px;" />'
-                for image in images
-            ))
-        return "No images"
-
-
-    list_display = ['image']
+    # def images(self, obj):
+    #     # Формируем список миниатюр всех изображений, связанных с Section4
+    #     images = obj.gallery.all()  # Предполагаем, что gallery - это ManyToManyField
+    #     if images:
+    #         return format_html(' '.join(
+    #             f'<img src="{image.image.url}" style="max-width: 100px; max-height: 100px; margin-right: 5px;" />'
+    #             for image in images
+    #         ))
+    #     return "No images"
+    #
+    #
+    # list_display = ['image']
 
 
 class Section8Inline(admin.StackedInline):
@@ -79,23 +80,23 @@ class Section11Inline(admin.StackedInline):
     extra = 0
 
 
-@admin.register(Building)
-class BuildingAdmin(admin.ModelAdmin):
+class BuildingAdmin(nested_admin.NestedStackedInline):
     exclude = ['slug']
     inlines = [
-        SectionInline,
-        Section2Inline,
-        Section3Inline,
-        Section4Inline,
-        Section5Inline,
-        Section6Inline,
+        # SectionInline,
+        # Section2Inline,
+        # Section3Inline,
+        # Section4Inline,
+        # Section5Inline,
+        # Section6Inline,
         Section7Inline,
-        Section8Inline,
-        Section9Inline,
-        Section10Inline,
-        Section11Inline,
+        # Section8Inline,
+        # Section9Inline,
+        # Section10Inline,
+        # Section11Inline,
     ]
 
+admin.site.register(Building, BuildingAdmin)
 
 
 
@@ -116,6 +117,7 @@ class ArchitectureAdmin(admin.ModelAdmin):
     filter_vertical = ('features',)
 
 admin.site.register(BlockInfo)
+
 # admin.site.register(Architecture)
 admin.site.register(Features)
 admin.site.register(InterestingNearbyBuilding)

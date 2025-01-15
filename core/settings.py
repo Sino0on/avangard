@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'news',
     'info',
     'ckeditor',
-    'home'
+    'home',
+    'about',
+    'nested_admin',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
