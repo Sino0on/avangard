@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Building, Section1, Section2, Section7, Section4, Section5, Section3, Section6, Section8, Section9, Section10, Section11, ImageGallery, Advantage, FloorSchema, Architecture, Category, ConstructionProgress, InterestingNearbyBuilding, InterestingNearby, BlockInfo, Features, ConstructionProgressImage
+from .models import *
 from django.utils.html import format_html
 import nested_admin
 
@@ -31,7 +31,7 @@ class Section6Inline(admin.StackedInline):
     extra = 0
     filter_horizontal = ('architecture',)
 
-class ImaegsInline(nested_admin.NestedStackedInline):
+class ImaegsInline(admin.StackedInline):
     model = ImageGallery
     extra = 1  # Количество пустых строк для добавления новых реквизитов
     fields = ['image']
@@ -39,11 +39,11 @@ class ImaegsInline(nested_admin.NestedStackedInline):
     # verbose_name_plural = "Реквизиты в сомах"
 
 
-class Section7Inline(nested_admin.NestedStackedInline):
+class Section7Inline(admin.StackedInline):
     model = Section7
     extra = 0
 
-    inlines = [ImaegsInline]
+    # inlines = [ImaegsInline]
 
     # def images(self, obj):
     #     # Формируем список миниатюр всех изображений, связанных с Section4
@@ -80,23 +80,23 @@ class Section11Inline(admin.StackedInline):
     extra = 0
 
 
-class BuildingAdmin(nested_admin.NestedStackedInline):
+@admin.register(Building)
+class BuildingAdmin(admin.ModelAdmin):
     exclude = ['slug']
     inlines = [
-        # SectionInline,
-        # Section2Inline,
-        # Section3Inline,
-        # Section4Inline,
-        # Section5Inline,
-        # Section6Inline,
+        SectionInline,
+        Section2Inline,
+        Section3Inline,
+        Section4Inline,
+        Section5Inline,
+        Section6Inline,
         Section7Inline,
-        # Section8Inline,
-        # Section9Inline,
-        # Section10Inline,
-        # Section11Inline,
+        Section8Inline,
+        Section9Inline,
+        Section10Inline,
+        Section11Inline,
     ]
 
-admin.site.register(Building, BuildingAdmin)
 
 
 
@@ -117,7 +117,6 @@ class ArchitectureAdmin(admin.ModelAdmin):
     filter_vertical = ('features',)
 
 admin.site.register(BlockInfo)
-
 # admin.site.register(Architecture)
 admin.site.register(Features)
 admin.site.register(InterestingNearbyBuilding)
