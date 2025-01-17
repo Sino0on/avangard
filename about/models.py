@@ -83,6 +83,7 @@ class Application(models.Model):
     theme = models.CharField(max_length=123, blank=True, null=True)
     name = models.CharField(max_length=123)
     phone = models.CharField(max_length=123)
+    comment = models.TextField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
