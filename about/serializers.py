@@ -89,5 +89,5 @@ class AboutUsSerializer(serializers.ModelSerializer):
 class ApplicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Application
-        fields = ['id', 'theme', 'name', 'phone', 'email', 'created_at']
+        fields = ['id', 'theme', 'name', 'phone', 'email', 'created_at', 'comment']
         read_only_fields = ['created_at']
