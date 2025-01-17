@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import AboutUs, Section1, Section2, Section3, Section4, Section5, Section6, Materials, Gramota, Licence, \
-    Sertificat, Application
+    Sertificat, Application, Mailing
 
 
 class MaterialsSerializer(serializers.ModelSerializer):
@@ -91,3 +91,10 @@ class ApplicationSerializer(serializers.ModelSerializer):
         model = Application
         fields = ['id', 'theme', 'name', 'phone', 'email', 'created_at', 'comment']
         read_only_fields = ['created_at']
+
+
+class MailingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mailing
+        fields = '__all__'
+

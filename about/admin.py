@@ -1,53 +1,75 @@
-import nested_admin
 from django.contrib import admin
 from .models import *
-from django.utils.html import format_html
 
 
-
-class SectionInline(nested_admin.NestedStackedInline):
+class SectionInline(admin.StackedInline):
     model = Section1
     extra = 0
 
-class MaterialsInline(nested_admin.NestedStackedInline):
+
+class MaterialsInline(admin.StackedInline):
     model = Materials
     extra = 1  # Количество пустых форм для добавления
 
-class Section2Inline(nested_admin.NestedStackedInline):
+
+class Section2Inline(admin.StackedInline):
     model = Section2
     inlines = [MaterialsInline]
     extra = 0
 
-class Section3Inline(nested_admin.NestedStackedInline):
+    # Убедитесь, что вы добавляете MaterialInline как часть админки
+    def get_inline_instances(self, request, obj=None):
+        inlines = super().get_inline_instances(request, obj)
+        if obj:
+            inlines.append(MaterialsInline(self.model, self.admin_site))
+        return inlines
+
+
+class Section3Inline(admin.StackedInline):
     model = Section3
     extra = 0
 
-class GramotaInline(nested_admin.NestedStackedInline):
+
+class GramotaInline(admin.StackedInline):
     model = Gramota
     extra = 1  # Количество пустых форм для добавления
 
-class Section4Inline(nested_admin.NestedStackedInline):
+
+class Section4Inline(admin.StackedInline):
     model = Section4
     inlines = [GramotaInline]
     extra = 0
 
-class LicenceInline(nested_admin.NestedStackedInline):
+    def get_inline_instances(self, request, obj=None):
+        inlines = super().get_inline_instances(request, obj)
+        if obj:
+            inlines.append(GramotaInline(self.model, self.admin_site))
+        return inlines
+
+
+class LicenceInline(admin.StackedInline):
     model = Licence
     extra = 1  # Количество пустых форм для добавления
 
-class Section5Inline(nested_admin.NestedStackedInline):
+
+class Section5Inline(admin.StackedInline):
     model = Section5
     inlines = [LicenceInline]
     extra = 0
 
+    def get_inline_instances(self, request, obj=None):
+        inlines = super().get_inline_instances(request, obj)
+        if obj:
+            inlines.append(LicenceInline(self.model, self.admin_site))
+        return inlines
 
-class Section6Inline(nested_admin.NestedStackedInline):
+
+class Section6Inline(admin.StackedInline):
     model = Section6
     extra = 0
 
 
-# @admin.register(AboutUs)
-class AboutUsAdmin(nested_admin.NestedModelAdmin):
+class AboutUsAdmin(admin.ModelAdmin):
     inlines = [
         SectionInline,
         Section2Inline,
@@ -58,7 +80,9 @@ class AboutUsAdmin(nested_admin.NestedModelAdmin):
     ]
     filter_vertical = ('advantages',)
 
+
 admin.site.register(AboutUs, AboutUsAdmin)
+
 
 # Админка для управления заявками
 @admin.register(Application)
@@ -75,15 +99,18 @@ class MaterialsAdmin(admin.ModelAdmin):
     list_display = ('title', 'section')
     search_fields = ('title',)
 
+
 @admin.register(Gramota)
 class GramotaAdmin(admin.ModelAdmin):
     list_display = ('title', 'section')
     search_fields = ('title',)
 
+
 @admin.register(Licence)
 class LicenceAdmin(admin.ModelAdmin):
     list_display = ('title', 'section')
     search_fields = ('title',)
+
 
 @admin.register(Sertificat)
 class SertificatAdmin(admin.ModelAdmin):

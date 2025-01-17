@@ -94,3 +94,15 @@ class Application(models.Model):
         verbose_name = 'Заявка'
         verbose_name_plural = 'Заявки'
         ordering = ['-created_at']
+
+
+class Mailing(models.Model):
+    email = models.EmailField()
+
+    def __str__(self):
+        return f'{self.email}'
+
+    class Meta:
+        verbose_name = 'Рассылка'
+        verbose_name_plural = 'Рассылки'
+        ordering = ['-created_at']
