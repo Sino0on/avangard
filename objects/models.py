@@ -60,6 +60,7 @@ class Building(models.Model):
         ("ended", "Реализовано"),
     ), verbose_name='Статус')
     banner = models.FileField(upload_to='images/banners/')
+    banner_img = models.FileField(upload_to='images/banners/', blank=True, null=True)
     imagepng = models.ImageField(upload_to='images/bgs/', blank=True, null=True)
     imagebg = models.ImageField(upload_to='images/bgs/')
     buklet = models.FileField(upload_to='files/buklets/')
