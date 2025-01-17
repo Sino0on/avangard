@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import AboutUs, Section1, Section2, Section3, Section4, Section5, Section6, Materials, Gramota, Licence, Sertificat
+from .models import AboutUs, Section1, Section2, Section3, Section4, Section5, Section6, Materials, Gramota, Licence, \
+    Sertificat, Application
+
 
 class MaterialsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -81,3 +83,11 @@ class AboutUsSerializer(serializers.ModelSerializer):
             'section_5',
             'section_6',
         ]
+
+
+# Сериализатор для модели Application
+class ApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Application
+        fields = ['id', 'theme', 'name', 'phone', 'email', 'created_at']
+        read_only_fields = ['created_at']
