@@ -125,6 +125,9 @@ class Section1(models.Model):
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_1', verbose_name="Объект")
     max_apartment = models.IntegerField(verbose_name="Аппартаменты")
 
+    def __str__(self):
+        return f'{self.building}'
+
     class Meta:
         verbose_name = 'О комплексе'
         verbose_name_plural = 'О комплексе'
