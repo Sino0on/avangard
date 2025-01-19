@@ -251,6 +251,9 @@ class FloorSchema(models.Model):
     title = models.CharField(max_length=123, verbose_name="Название")
     section4 = models.ForeignKey(Section4, related_name='section_floors', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
+    def __str__(self):
+        return f'{self.section4} - {self.title}'
+
     class Meta:
         verbose_name = 'Планировка этажа'
         verbose_name_plural = 'Планировки этажей'
@@ -260,6 +263,9 @@ class BlockInfo(models.Model):
     title = models.CharField(max_length=211, verbose_name="Название")
     image = models.ImageField(upload_to='images/buildings/', verbose_name="Изображение")
     floorschema = models.ForeignKey(FloorSchema, related_name='floorschema_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Блоки")
+
+    def __str__(self):
+        return f'{self.floorschema} - {self.title}'
 
     class Meta:
         verbose_name = 'Блок'
