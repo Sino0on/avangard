@@ -99,7 +99,7 @@ class Building(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        ordering = ['-created_at']
+        ordering = ['priority']
         verbose_name = 'Объект'
         verbose_name_plural = 'Объекты'
 
