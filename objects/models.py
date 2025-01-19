@@ -255,8 +255,8 @@ class FloorSchema(models.Model):
         return f'{self.section4} - {self.title}'
 
     class Meta:
-        verbose_name = 'Планировка этажа'
-        verbose_name_plural = 'Планировки этажей'
+        verbose_name = 'Планировка блока'
+        verbose_name_plural = 'Планировки блоков'
 
 
 class BlockInfo(models.Model):
@@ -268,8 +268,8 @@ class BlockInfo(models.Model):
         return f'{self.floorschema} - {self.title}'
 
     class Meta:
-        verbose_name = 'Блок'
-        verbose_name_plural = 'Блоки'
+        verbose_name = 'Планы этажа'
+        verbose_name_plural = 'Планы этажей'
 
 
 class Architecture(models.Model):
