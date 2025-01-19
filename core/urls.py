@@ -11,6 +11,7 @@ urlpatterns = [
     path("api/v1/contact/", include("info.urls")),
     path("api/v1/home/", include("home.urls")),
     path("api/v1/about/", include("about.urls")),
+    path("api/v1/tender/", include("tender.urls")),
     path('admin/', admin.site.urls),
     # path("i18n/", include("django.conf.urls.i18n")),
     path("docs/", include("openapi.urls")),

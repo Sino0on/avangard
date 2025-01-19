@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'home',
     'about',
     'nested_admin',
+    'tender'
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
