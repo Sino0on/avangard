@@ -81,6 +81,54 @@ class AboutUsAdmin(admin.ModelAdmin):
     filter_vertical = ('advantages',)
 
 
+class SertificatInline(admin.StackedInline):
+    model = Sertificat
+    extra = 0
+
+
+@admin.register(Section6)
+class Section6Admin(admin.ModelAdmin):
+    inlines = [
+        SertificatInline,
+    ]
+
+
+class LicenceInline(admin.StackedInline):
+    model = Licence
+    extra = 0
+
+
+@admin.register(Section5)
+class Section5Admin(admin.ModelAdmin):
+    inlines = [
+        LicenceInline,
+    ]
+
+
+class GramotaInline(admin.StackedInline):
+    model = Gramota
+    extra = 0
+
+
+@admin.register(Section4)
+class Section4Admin(admin.ModelAdmin):
+    inlines = [
+        GramotaInline,
+    ]
+
+
+class MaterialsInline(admin.StackedInline):
+    model = Materials
+    extra = 0
+
+
+@admin.register(Section2)
+class Section2Admin(admin.ModelAdmin):
+    inlines = [
+        MaterialsInline,
+    ]
+
+
 admin.site.register(AboutUs, AboutUsAdmin)
 
 
