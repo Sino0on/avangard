@@ -181,6 +181,9 @@ class Section5(models.Model):
 class Section6(models.Model):
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_6', verbose_name="Объект")
 
+    def __str__(self):
+        return f'{self.building}'
+
     class Meta:
         verbose_name = 'Секция архитектуры в обьекте'
         verbose_name_plural = 'Секция архитектуры в обьекте'
@@ -208,6 +211,9 @@ class Section8(models.Model):
 
 class Section9(models.Model):
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_9', verbose_name="Объект")
+
+    def __str__(self):
+        return f'{self.building}'
 
     class Meta:
         verbose_name = 'Интересное рядом с Объектом'
