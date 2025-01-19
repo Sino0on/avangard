@@ -369,7 +369,7 @@ class ConstructionProgressImage(models.Model):
 
 class ParkingImages(models.Model):
     title = models.CharField(max_length=255, verbose_name='Название')
-    under_parking_layout = models.ImageField(upload_to='images/buildings/', verbose_name="Подземная парковка")
+    under_parking_layout = models.FileField(upload_to='images/buildings/', verbose_name="Подземная парковка")
     section = models.ForeignKey(Section5, related_name='ParkingImages_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Секция")
 
     def __str__(self):
