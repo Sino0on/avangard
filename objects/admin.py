@@ -200,6 +200,18 @@ class Section5Admin(admin.ModelAdmin):
     ]
 
 
+class ApartmentsInline(admin.StackedInline):
+    model = Apartments
+    extra = 1
+
+
+@admin.register(Section1)
+class Section1Admin(admin.ModelAdmin):
+    inlines = [
+        ApartmentsInline,
+    ]
+
+
 # admin.site.register(BlockInfo)
 # admin.site.register(Architecture)
 # admin.site.register(Features)
