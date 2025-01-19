@@ -106,7 +106,7 @@ class Building(models.Model):
 class InterestingNearbyBuilding(models.Model):
     time = models.CharField(max_length=123, verbose_name="Время от обьекта")
     building = models.ForeignKey(InterestingNearby, models.PROTECT, related_name='interetes', verbose_name="Объект")
-    section9 = models.ForeignKey('Section9', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Обьект')
+    section9 = models.ForeignKey('Section9', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Обьект', related_name='interesteds_secrion')
 
     def __str__(self):
         return f'{self.building}'

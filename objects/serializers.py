@@ -68,7 +68,7 @@ class Section3Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Section4Serializer(serializers.ModelSerializer):
-    floorschemas = FloorSchemaSerializer(many=True)
+    floorschemas = FloorSchemaSerializer(many=True, source='section_floors')
     class Meta:
         model = Section4
         fields = '__all__'
@@ -79,7 +79,7 @@ class Section5Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Section6Serializer(serializers.ModelSerializer):
-    architecture = ArchitectureSerializer(many=True)
+    architecture = ArchitectureSerializer(many=True, source='Architecture_blocks')
     class Meta:
         model = Section6
         fields = '__all__'
@@ -98,7 +98,7 @@ class Section8Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class Section9Serializer(serializers.ModelSerializer):
-    interest_nearby = InterestingNearbyBuildingSerializer(many=True)
+    interest_nearby = InterestingNearbyBuildingSerializer(many=True, source='interesteds_secrion')
 
     class Meta:
         model = Section9
