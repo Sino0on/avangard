@@ -270,6 +270,9 @@ class Architecture(models.Model):
     section6 = models.ForeignKey(Section6, related_name='Architecture_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Архитектура")
     title = models.CharField(max_length=123, verbose_name="Название")
 
+    def __str__(self):
+        return f'{self.title} - {self.section6}'
+
     class Meta:
         verbose_name = 'Архитектура'
         verbose_name_plural = 'Архитектура'
