@@ -106,6 +106,7 @@ class Building(models.Model):
 class InterestingNearbyBuilding(models.Model):
     time = models.CharField(max_length=123, verbose_name="Время от обьекта")
     building = models.ForeignKey(InterestingNearby, models.PROTECT, related_name='interetes', verbose_name="Объект")
+    section9 = models.ForeignKey('Section9', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Обьект')
 
     def __str__(self):
         return f'{self.building}'
@@ -158,8 +159,10 @@ class Section3(models.Model):
 
 
 class Section4(models.Model):
-    floorschemas = models.ManyToManyField('FloorSchema', verbose_name="Схема этажей")
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_4', verbose_name="Объект")
+
+    def __str__(self):
+        return f'Планы этажей для - {self.building}'
 
     class Meta:
         verbose_name = 'Планы этажей'
@@ -176,16 +179,18 @@ class Section5(models.Model):
 
 
 class Section6(models.Model):
-    architecture = models.ManyToManyField('Architecture', verbose_name="Архитектура")
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_6', verbose_name="Объект")
 
     class Meta:
-        verbose_name = 'Архитектура'
-        verbose_name_plural = 'Архитектура'
+        verbose_name = 'Секция архитектуры в обьекте'
+        verbose_name_plural = 'Секция архитектуры в обьекте'
 
 
 class Section7(models.Model):
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_7', verbose_name="Объект")
+
+    def __str__(self):
+        return f'Галерея для {self.building}'
 
     class Meta:
         verbose_name = 'Галерея'
@@ -202,12 +207,11 @@ class Section8(models.Model):
 
 
 class Section9(models.Model):
-    interest_nearby = models.ManyToManyField(InterestingNearbyBuilding, verbose_name="Интересные места")
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_9', verbose_name="Объект")
 
     class Meta:
-        verbose_name = 'Интересное рядом'
-        verbose_name_plural = 'Интересное рядом'
+        verbose_name = 'Интересное рядом с Объектом'
+        verbose_name_plural = 'Интересное рядом с Объектом'
 
 
 class Section10(models.Model):
@@ -239,7 +243,7 @@ class ImageGallery(models.Model):
 
 class FloorSchema(models.Model):
     title = models.CharField(max_length=123, verbose_name="Название")
-    blocks = models.ManyToManyField("BlockInfo", verbose_name="Блоки")
+    section4 = models.ForeignKey(Section4, related_name='section_floors', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Планировка этажа'
@@ -249,6 +253,7 @@ class FloorSchema(models.Model):
 class BlockInfo(models.Model):
     title = models.CharField(max_length=211, verbose_name="Название")
     image = models.ImageField(upload_to='images/buildings/', verbose_name="Изображение")
+    floorschema = models.ForeignKey(FloorSchema, related_name='floorschema_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Блоки")
 
     class Meta:
         verbose_name = 'Блок'
@@ -256,16 +261,18 @@ class BlockInfo(models.Model):
 
 
 class Architecture(models.Model):
+    section6 = models.ForeignKey(Section6, related_name='Architecture_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Архитектура")
     title = models.CharField(max_length=123, verbose_name="Название")
-    features = models.ManyToManyField('Features', verbose_name="Фича")
 
     class Meta:
         verbose_name = 'Архитектура'
         verbose_name_plural = 'Архитектура'
 
+
 class Features(models.Model):
     title = models.CharField(max_length=123, verbose_name="Название")
     mini_description = models.TextField(verbose_name="Описание")
+    Architecture = models.ForeignKey(Architecture, related_name='Architecture_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Архитектура")
 
     class Meta:
         verbose_name = 'Функция'

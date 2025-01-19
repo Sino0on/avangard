@@ -87,10 +87,10 @@ class BuildingAdmin(admin.ModelAdmin):
         SectionInline,
         Section2Inline,
         Section3Inline,
-        Section4Inline,
+        # Section4Inline,
         Section5Inline,
-        Section6Inline,
-        Section7Inline,
+        # Section6Inline,
+        # Section7Inline,
         Section8Inline,
         Section9Inline,
         Section10Inline,
@@ -98,10 +98,57 @@ class BuildingAdmin(admin.ModelAdmin):
     ]
 
 
+class GalleryInline(admin.StackedInline):
+    model = ImageGallery
+    extra = 1
+
+
+@admin.register(Section7)
+class GalleryAdmin(admin.ModelAdmin):
+    inlines = [
+        GalleryInline,
+    ]
+
+
+class FloorSchemaInline(admin.StackedInline):
+    model = FloorSchema
+    extra = 1
+
+
+@admin.register(Section4)
+class FloorSchemaAdmin(admin.ModelAdmin):
+    inlines = [
+        FloorSchemaInline,
+    ]
+
+
+class BlocksInline(admin.StackedInline):
+    model = BlockInfo
+    extra = 1
+
+
+@admin.register(FloorSchema)
+class FloorAdmin(admin.ModelAdmin):
+    inlines = [
+        BlocksInline,
+    ]
+
+
+class InterestingInline(admin.StackedInline):
+    model = InterestingNearbyBuilding
+    extra = 1
+
+
+@admin.register(Section9)
+class Section9Admin(admin.ModelAdmin):
+    inlines = [
+        InterestingInline,
+    ]
 
 
 admin.site.register(Advantage)
-admin.site.register(FloorSchema)
+# admin.site.register(FloorSchema)
+
 
 @admin.register(ImageGallery)
 class ImageAdmin(admin.ModelAdmin):
@@ -111,17 +158,37 @@ class ImageAdmin(admin.ModelAdmin):
     list_display = ['image_tag', ]
 
 
+class FeaturesInline(admin.StackedInline):
+    model = Features
+    extra = 1
+
 
 @admin.register(Architecture)
 class ArchitectureAdmin(admin.ModelAdmin):
-    filter_vertical = ('features',)
+    inlines = [
+        FeaturesInline,
+    ]
+
+
+class ArchitectureInline(admin.StackedInline):
+    model = Architecture
+    extra = 1
+
+
+@admin.register(Section6)
+class Section6Admin(admin.ModelAdmin):
+    inlines = [
+        ArchitectureInline,
+    ]
+
 
 admin.site.register(BlockInfo)
 # admin.site.register(Architecture)
-admin.site.register(Features)
-admin.site.register(InterestingNearbyBuilding)
+# admin.site.register(Features)
+# admin.site.register(InterestingNearbyBuilding)
 admin.site.register(InterestingNearby)
 admin.site.register(Category)
+
 
 class ConstructionProgressImageInline(admin.TabularInline):
     model = ConstructionProgressImage
@@ -129,6 +196,7 @@ class ConstructionProgressImageInline(admin.TabularInline):
     fields = ['image']
     verbose_name = "Изображение"
     verbose_name_plural = "Изображения"
+
 
 @admin.register(ConstructionProgress)
 class ConstructionProgressAdmin(admin.ModelAdmin):
