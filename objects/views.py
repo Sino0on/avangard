@@ -16,7 +16,7 @@ from .serializers import *
 class BuildingListApiView(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = BuildingListSerializer
-    queryset = Building.objects.filter(status='active')
+    queryset = Building.objects.filter(status='active').order_by('priority')
 
 
 class BuildingDetailApiView(generics.RetrieveAPIView):
