@@ -261,7 +261,7 @@ class FloorSchema(models.Model):
 
 class BlockInfo(models.Model):
     title = models.CharField(max_length=211, verbose_name="Название")
-    image = models.ImageField(upload_to='images/buildings/', verbose_name="Изображение")
+    image = models.FileField(upload_to='images/buildings/', verbose_name="Изображение")
     floorschema = models.ForeignKey(FloorSchema, related_name='floorschema_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Блоки")
 
     def __str__(self):
