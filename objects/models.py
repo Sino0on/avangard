@@ -66,6 +66,7 @@ class Building(models.Model):
     buklet = models.FileField(upload_to='files/buklets/', verbose_name="Буклет")
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="Категория")
     is_new = models.BooleanField(default=False, verbose_name="Новинка")
+    priority = models.IntegerField(verbose_name="Приоритетность")
 
     # section 1
 
