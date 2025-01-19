@@ -8,9 +8,9 @@ from django.utils.functional import cached_property
 
 
 class InterestingNearby(models.Model):
-    title = models.CharField(max_length=123)
-    image = models.ImageField(upload_to='images/other/')
-    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=123, verbose_name="Название")
+    image = models.ImageField(upload_to='images/other/', verbose_name="Изображение")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создание")
 
     def __str__(self):
         return f'{self.title}'
@@ -23,8 +23,8 @@ class InterestingNearby(models.Model):
 
 # Жилой комплекс или резиденция итд
 class Category(models.Model):
-    title = models.CharField(max_length=123)
-    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=123, verbose_name="Название")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создание")
 
     def __str__(self):
         return f'{self.title}'
@@ -36,9 +36,9 @@ class Category(models.Model):
 
 
 class Advantage(models.Model):
-    title = models.CharField(max_length=123)
-    svg = models.FileField(upload_to='svg/')
-    created_at = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=123, verbose_name="Название")
+    svg = models.FileField(upload_to='svg/', verbose_name="Изображение")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создание")
 
     def __str__(self):
         return f'{self.title}'
@@ -59,13 +59,13 @@ class Building(models.Model):
         ("archive", "Архив"),
         ("ended", "Реализовано"),
     ), verbose_name='Статус')
-    banner = models.FileField(upload_to='images/banners/')
-    banner_img = models.FileField(upload_to='images/banners/', blank=True, null=True)
-    imagepng = models.ImageField(upload_to='images/bgs/', blank=True, null=True)
-    imagebg = models.ImageField(upload_to='images/bgs/')
-    buklet = models.FileField(upload_to='files/buklets/')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT)
-    is_new = models.BooleanField(default=False)
+    banner = models.FileField(upload_to='images/banners/', verbose_name="Видео")
+    banner_img = models.FileField(upload_to='images/banners/', blank=True, null=True, verbose_name="Изображение")
+    imagepng = models.ImageField(upload_to='images/bgs/', blank=True, null=True, verbose_name="Изображение PNG")
+    imagebg = models.ImageField(upload_to='images/bgs/', verbose_name="Фоновое изображение")
+    buklet = models.FileField(upload_to='files/buklets/', verbose_name="Буклет")
+    category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="Категория")
+    is_new = models.BooleanField(default=False, verbose_name="Новинка")
 
     # section 1
 
@@ -104,8 +104,8 @@ class Building(models.Model):
 
 
 class InterestingNearbyBuilding(models.Model):
-    time = models.CharField(max_length=123)
-    building = models.ForeignKey(InterestingNearby, models.PROTECT, related_name='interetes')
+    time = models.CharField(max_length=123, verbose_name="Время от обьекта")
+    building = models.ForeignKey(InterestingNearby, models.PROTECT, related_name='interetes', verbose_name="Объект")
 
     def __str__(self):
         return f'{self.building}'
@@ -116,13 +116,13 @@ class InterestingNearbyBuilding(models.Model):
 
 
 class Section1(models.Model):
-    first_image = models.ImageField(upload_to='images/buildings/')
-    second_image = models.ImageField(upload_to='images/buildings/')
-    description = models.TextField()
-    address = models.CharField(max_length=123)
-    max_blocks = models.IntegerField()
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_1')
-    max_apartment = models.IntegerField()
+    first_image = models.ImageField(upload_to='images/buildings/', verbose_name="Первое изображение")
+    second_image = models.ImageField(upload_to='images/buildings/', verbose_name="Второе изображение")
+    description = models.TextField(verbose_name="Описание")
+    address = models.CharField(max_length=123, verbose_name="Адрес")
+    max_blocks = models.IntegerField(verbose_name="Блоки")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_1', verbose_name="Объект")
+    max_apartment = models.IntegerField(verbose_name="Аппартаменты")
 
     class Meta:
         verbose_name = 'О комплексе'
@@ -130,17 +130,17 @@ class Section1(models.Model):
 
 
 class Section2(models.Model):
-    plot_area = models.FloatField()
-    parking_spaces = models.IntegerField()
-    low_rise_blocks = models.IntegerField()
-    construction_area = models.IntegerField()
-    appartament_quantity = models.IntegerField()
-    yard_area = models.FloatField()
-    green_area = models.FloatField()
-    childrens_playgrounds = models.IntegerField()
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_2')
-    first_image = models.ImageField(upload_to='images')
-    second_image = models.ImageField(upload_to='images')
+    plot_area = models.FloatField(verbose_name="Площадь участка")
+    parking_spaces = models.IntegerField(verbose_name="Парковочных мест")
+    low_rise_blocks = models.IntegerField(verbose_name="Малоэтажных блоков")
+    construction_area = models.IntegerField(verbose_name="Площадь застройки")
+    appartament_quantity = models.IntegerField(verbose_name="Количество квартир")
+    yard_area = models.FloatField(verbose_name="Площадь двора")
+    green_area = models.FloatField(verbose_name="Площадь озеленения")
+    childrens_playgrounds = models.IntegerField(verbose_name="Детских площадок")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_2', verbose_name="Объект")
+    first_image = models.ImageField(upload_to='images', verbose_name="Первое изображение")
+    second_image = models.ImageField(upload_to='images', verbose_name="Второе изображение")
 
     class Meta:
         verbose_name = 'В цифрах'
@@ -148,9 +148,9 @@ class Section2(models.Model):
 
 
 class Section3(models.Model):
-    day_image = models.ImageField(upload_to='images/buildings/')
-    night_image = models.ImageField(upload_to='images/buildings/')
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_3')
+    day_image = models.ImageField(upload_to='images/buildings/', verbose_name="Дневное изображение")
+    night_image = models.ImageField(upload_to='images/buildings/', verbose_name="Ночное изображение")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_3', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'День и Ночь'
@@ -158,8 +158,8 @@ class Section3(models.Model):
 
 
 class Section4(models.Model):
-    floorschemas = models.ManyToManyField('FloorSchema')
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_4')
+    floorschemas = models.ManyToManyField('FloorSchema', verbose_name="Схема этажей")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_4', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Планы этажей'
@@ -167,8 +167,8 @@ class Section4(models.Model):
 
 
 class Section5(models.Model):
-    under_parking_layout = models.ImageField(upload_to='images/buildings/')
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_5')
+    under_parking_layout = models.ImageField(upload_to='images/buildings/', verbose_name="Подземная парковка")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_5', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Подземная парковка'
@@ -176,8 +176,8 @@ class Section5(models.Model):
 
 
 class Section6(models.Model):
-    architecture = models.ManyToManyField('Architecture')
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_6')
+    architecture = models.ManyToManyField('Architecture', verbose_name="Архитектура")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_6', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Архитектура'
@@ -185,7 +185,7 @@ class Section6(models.Model):
 
 
 class Section7(models.Model):
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_7')
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_7', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Галерея'
@@ -193,8 +193,8 @@ class Section7(models.Model):
 
 
 class Section8(models.Model):
-    advantages = models.ManyToManyField(Advantage)
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_8')
+    advantages = models.ManyToManyField(Advantage, verbose_name="Преимущества")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_8', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Преимущества'
@@ -202,8 +202,8 @@ class Section8(models.Model):
 
 
 class Section9(models.Model):
-    interest_nearby = models.ManyToManyField(InterestingNearbyBuilding)
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_9')
+    interest_nearby = models.ManyToManyField(InterestingNearbyBuilding, verbose_name="Интересные места")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_9', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Интересное рядом'
@@ -211,11 +211,11 @@ class Section9(models.Model):
 
 
 class Section10(models.Model):
-    location_description = models.TextField()
-    location_iframe_url = models.TextField()
-    location_image_first = models.ImageField(upload_to='images/buildings/')
-    location_image_second = models.ImageField(upload_to='images/buildings/')
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_10')
+    location_description = models.TextField(verbose_name="Описание локации")
+    location_iframe_url = models.TextField(verbose_name="Ссылка адреса")
+    location_image_first = models.ImageField(upload_to='images/buildings/', verbose_name="Первое изображение")
+    location_image_second = models.ImageField(upload_to='images/buildings/', verbose_name="Второе изображение")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_10', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Локация'
@@ -223,9 +223,9 @@ class Section10(models.Model):
 
 
 class Section11(models.Model):
-    youtube_url = models.URLField()
-    live_url = models.URLField()
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_11')
+    youtube_url = models.URLField(verbose_name="")
+    live_url = models.URLField(verbose_name="")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_11', verbose_name="Объект")
 
     class Meta:
         verbose_name = 'Футер'
@@ -233,13 +233,13 @@ class Section11(models.Model):
 
 
 class ImageGallery(models.Model):
-    image = models.ImageField(upload_to='images/gallery/')
-    section7 = models.ForeignKey(Section7, related_name='section_images', on_delete=models.CASCADE, blank=True, null=True)
+    image = models.ImageField(upload_to='images/gallery/', verbose_name="Изображение")
+    section7 = models.ForeignKey(Section7, related_name='section_images', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
 
 class FloorSchema(models.Model):
-    title = models.CharField(max_length=123)
-    blocks = models.ManyToManyField("BlockInfo")
+    title = models.CharField(max_length=123, verbose_name="Название")
+    blocks = models.ManyToManyField("BlockInfo", verbose_name="Блоки")
 
     class Meta:
         verbose_name = 'Планировка этажа'
@@ -247,8 +247,8 @@ class FloorSchema(models.Model):
 
 
 class BlockInfo(models.Model):
-    title = models.CharField(max_length=211)
-    image = models.ImageField(upload_to='images/buildings/')
+    title = models.CharField(max_length=211, verbose_name="Название")
+    image = models.ImageField(upload_to='images/buildings/', verbose_name="Изображение")
 
     class Meta:
         verbose_name = 'Блок'
@@ -256,16 +256,16 @@ class BlockInfo(models.Model):
 
 
 class Architecture(models.Model):
-    title = models.CharField(max_length=123)
-    features = models.ManyToManyField('Features')
+    title = models.CharField(max_length=123, verbose_name="Название")
+    features = models.ManyToManyField('Features', verbose_name="Фича")
 
     class Meta:
         verbose_name = 'Архитектура'
         verbose_name_plural = 'Архитектура'
 
 class Features(models.Model):
-    title = models.CharField(max_length=123)
-    mini_description = models.TextField()
+    title = models.CharField(max_length=123, verbose_name="Название")
+    mini_description = models.TextField(verbose_name="Описание")
 
     class Meta:
         verbose_name = 'Функция'
