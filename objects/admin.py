@@ -182,7 +182,7 @@ class Section6Admin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(BlockInfo)
+# admin.site.register(BlockInfo)
 # admin.site.register(Architecture)
 # admin.site.register(Features)
 # admin.site.register(InterestingNearbyBuilding)
