@@ -170,7 +170,6 @@ class Section4(models.Model):
 
 
 class Section5(models.Model):
-    under_parking_layout = models.ImageField(upload_to='images/buildings/', verbose_name="Подземная парковка")
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_5', verbose_name="Объект")
 
     class Meta:
@@ -240,6 +239,16 @@ class Section11(models.Model):
     class Meta:
         verbose_name = 'Футер'
         verbose_name_plural = 'Футер'
+
+
+class Section12(models.Model):
+    image = models.FileField(upload_to='images/buildings/', verbose_name="Изображение")
+    gen_plan = models.FileField(upload_to='files/buildings/', verbose_name="Ген план")
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_12', verbose_name="Объект")
+
+    class Meta:
+        verbose_name = 'Нумерация'
+        verbose_name_plural = 'Нумерация'
 
 
 class ImageGallery(models.Model):
@@ -350,3 +359,28 @@ class ConstructionProgressImage(models.Model):
 
     def __str__(self):
         return f"Изображение для {self.construction_progress}"
+
+
+class ParkingImages(models.Model):
+    title = models.CharField(max_length=255, verbose_name='Название')
+    under_parking_layout = models.ImageField(upload_to='images/buildings/', verbose_name="Подземная парковка")
+    section = models.ForeignKey(Section5, related_name='ParkingImages_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Секция")
+
+    def __str__(self):
+        return f'{self.section}'
+
+    class Meta:
+        verbose_name = 'Подземная парковка изображении'
+        verbose_name_plural = 'Подземная парковка изображении'
+
+
+class Apartments(models.Model):
+    title = models.CharField(max_length=123)
+    section1 = models.ForeignKey(Section1, related_name='Apartments_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Секция")
+
+    def __str__(self):
+        return f'{self.section1} - {self.title}'
+
+    class Meta:
+        verbose_name = 'Квартиры'
+        verbose_name_plural = 'Квартиры'

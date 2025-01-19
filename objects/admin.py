@@ -80,6 +80,11 @@ class Section11Inline(admin.StackedInline):
     extra = 0
 
 
+class Section12Inline(admin.StackedInline):
+    model = Section12
+    extra = 0
+
+
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
     exclude = ['slug']
@@ -95,6 +100,7 @@ class BuildingAdmin(admin.ModelAdmin):
         Section9Inline,
         Section10Inline,
         Section11Inline,
+        Section12Inline,
     ]
 
 
@@ -179,6 +185,18 @@ class ArchitectureInline(admin.StackedInline):
 class Section6Admin(admin.ModelAdmin):
     inlines = [
         ArchitectureInline,
+    ]
+
+
+class ParkingImagesInline(admin.StackedInline):
+    model = ParkingImages
+    extra = 1
+
+
+@admin.register(Section5)
+class Section5Admin(admin.ModelAdmin):
+    inlines = [
+        ParkingImagesInline,
     ]
 
 

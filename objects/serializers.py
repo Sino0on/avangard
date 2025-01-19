@@ -39,9 +39,21 @@ class AdvantageSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ParkingImagesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ParkingImages
+        fields = '__all__'
+
+
 class ImageGallerySerializer(serializers.ModelSerializer):
     class Meta:
         model = ImageGallery
+        fields = '__all__'
+
+
+class ApartmentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Apartments
         fields = '__all__'
 
 
@@ -52,20 +64,25 @@ class InterestingNearbyBuildingSerializer(serializers.ModelSerializer):
         model = InterestingNearbyBuilding
         fields = ['id', 'building', 'time']
 
+
 class Section1Serializer(serializers.ModelSerializer):
+    apartments = ApartmentsSerializer(many=True, source='Apartments_blocks')
     class Meta:
         model = Section1
         fields = '__all__'
+
 
 class Section2Serializer(serializers.ModelSerializer):
     class Meta:
         model = Section2
         fields = '__all__'
 
+
 class Section3Serializer(serializers.ModelSerializer):
     class Meta:
         model = Section3
         fields = '__all__'
+
 
 class Section4Serializer(serializers.ModelSerializer):
     floorschemas = FloorSchemaSerializer(many=True, source='section_floors')
@@ -73,10 +90,13 @@ class Section4Serializer(serializers.ModelSerializer):
         model = Section4
         fields = '__all__'
 
+
 class Section5Serializer(serializers.ModelSerializer):
+    images = ParkingImagesSerializer(many=True, source='ParkingImages_blocks')
     class Meta:
         model = Section5
         fields = '__all__'
+
 
 class Section6Serializer(serializers.ModelSerializer):
     architecture = ArchitectureSerializer(many=True, source='Architecture_blocks')
@@ -84,8 +104,10 @@ class Section6Serializer(serializers.ModelSerializer):
         model = Section6
         fields = '__all__'
 
+
 class Section7Serializer(serializers.ModelSerializer):
     images = ImageGallerySerializer(many=True, source='section_images')
+
     class Meta:
         model = Section7
         fields = '__all__'
@@ -115,6 +137,12 @@ class Section11Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class Section12Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Section12
+        fields = '__all__'
+
+
 class BuildingSerializer(serializers.ModelSerializer):
     about_complex = Section1Serializer(source='section_1')
     object_metrics = Section2Serializer(source='section_2')
@@ -127,6 +155,7 @@ class BuildingSerializer(serializers.ModelSerializer):
     interest_nearby = Section9Serializer(source='section_9')
     location = Section10Serializer(source='section_10')
     footer = Section11Serializer(source='section_11')
+    numeration = Section12Serializer(source='section_12')
 
     class Meta:
         model = Building
