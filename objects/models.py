@@ -172,6 +172,9 @@ class Section4(models.Model):
 class Section5(models.Model):
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_5', verbose_name="Объект")
 
+    def __str__(self):
+        return f'{self.building}'
+
     class Meta:
         verbose_name = 'Подземная парковка'
         verbose_name_plural = 'Подземная парковка'
@@ -225,6 +228,9 @@ class Section10(models.Model):
     location_image_first = models.ImageField(upload_to='images/buildings/', verbose_name="Первое изображение")
     location_image_second = models.ImageField(upload_to='images/buildings/', verbose_name="Второе изображение")
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_10', verbose_name="Объект")
+
+    def __str__(self):
+        return f'{self.building}'
 
     class Meta:
         verbose_name = 'Локация'
