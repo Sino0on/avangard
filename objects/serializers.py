@@ -27,7 +27,7 @@ class BlockSerializer(serializers.ModelSerializer):
 
 
 class FloorSchemaSerializer(serializers.ModelSerializer):
-    blocks = BlockSerializer(many=True)
+    blocks = BlockSerializer(many=True, source='floorschema_blocks')
     class Meta:
         model = FloorSchema
         fields = '__all__'
