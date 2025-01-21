@@ -14,7 +14,15 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class FeaturesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Features
+        fields = '__all__'
+
+
 class ArchitectureSerializer(serializers.ModelSerializer):
+    features = FeaturesSerializer(many=True, source='Architecture_blocks')
+
     class Meta:
         model = Architecture
         fields = '__all__'
