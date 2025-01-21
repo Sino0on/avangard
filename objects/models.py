@@ -292,6 +292,7 @@ class BlockInfo(models.Model):
 
 
 class Architecture(models.Model):
+    image = models.FileField(upload_to='images/building/', blank=True, null=True)
     section6 = models.ForeignKey(Section6, related_name='Architecture_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Архитектура")
     title = models.CharField(max_length=123, verbose_name="Название")
 
