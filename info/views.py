@@ -10,7 +10,7 @@ class GetContactInfoApiView(APIView):
 
     def get(self, request, *args, **kwargs):
         contact = Contacts.load()  # Загружаем единственный экземпляр Contacts
-        serializer = ContactsSerializer(contact)
+        serializer = ContactsSerializer(contact, context={'request': request})
         return Response(serializer.data)
 
 
@@ -18,5 +18,5 @@ class TechnicalBaseApiView(APIView):
     permission_classes = [AllowAny]
     def get(self, request, *args, **kwargs):
         technical_base = TechnicalBase.load()  # Получаем единственную запись модели TechnicalBase
-        serializer = TechnicalBaseSerializer(technical_base)
+        serializer = TechnicalBaseSerializer(technical_base, context={'request': request})
         return Response(serializer.data)
