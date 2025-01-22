@@ -13,6 +13,6 @@ class GetHomeInfoApi(generics.GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         contact = HomeInfo.load()  # Загружаем единственный экземпляр Contacts
-        serializer = HomeInfoSerializer(contact)
+        serializer = HomeInfoSerializer(contact, context={'request': request})
         return Response(serializer.data)
 

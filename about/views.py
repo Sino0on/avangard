@@ -12,7 +12,7 @@ class AboutUsView(GenericAPIView):
 
     def get(self, request, *args, **kwargs):
         about_us = AboutUs.load()  # Singleton ensures there's always one instance
-        serializer = AboutUsSerializer(about_us)
+        serializer = AboutUsSerializer(about_us, context={'request': request})
         return Response(serializer.data)
 
 
