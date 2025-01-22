@@ -1,4 +1,6 @@
 from rest_framework import serializers
+
+from objects.serializers import AdvantageSerializer
 from .models import AboutUs, Section1, Section2, Section3, Section4, Section5, Section6, Materials, Gramota, Licence, \
     Sertificat, Application, Mailing
 
@@ -54,12 +56,14 @@ class Section5Serializer(serializers.ModelSerializer):
         model = Section5
         fields = ['id', 'title', 'description', 'about_us', 'licences']
 
+
 class Section6Serializer(serializers.ModelSerializer):
     sertificats = SertificatSerializer(many=True, read_only=True, source='sertificat_set')
 
     class Meta:
         model = Section6
         fields = ['id', 'title', 'description', 'about_us', 'sertificats']
+
 
 class AboutUsSerializer(serializers.ModelSerializer):
     section_1 = Section1Serializer()
@@ -68,6 +72,7 @@ class AboutUsSerializer(serializers.ModelSerializer):
     section_4 = Section4Serializer()
     section_5 = Section5Serializer()
     section_6 = Section6Serializer()
+    advantages = AdvantageSerializer(many=True)
 
     class Meta:
         model = AboutUs
