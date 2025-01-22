@@ -31,7 +31,7 @@ class ContactsSerializer(serializers.ModelSerializer):
     som_requisites = RequisitesInSomSerializer(many=True, read_only=True)
     dollar_requisites = RequisitesInDollarSerializer(many=True, read_only=True)
     home_addresses = AddressSerializer(many=True, source='addresss')
-    addresses = AddressesSerializer(many=True, source='addresses')
+    address = AddressesSerializer(many=True, source='addresses')
 
     class Meta:
         model = Contacts
