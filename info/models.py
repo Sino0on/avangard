@@ -27,8 +27,9 @@ class SingletonModel(models.Model):
 
 
 class Contacts(SingletonModel):
-    addresses = RichTextField(verbose_name="Адреса")
-    requisites = RichTextField(verbose_name="Реквизиты")
+    title = models.CharField(max_length=255, verbose_name="Название компании", blank=True, default='ОсОО «Строительная компания «Авангард стиль»')
+    inn = models.CharField(max_length=123, verbose_name='ИНН', default='00412199810063 999 УГКНС ККН')
+    okpo = models.CharField(max_length=123, verbose_name='ОКПО', default='22116708')
 
     class Meta:
         verbose_name = "Контакты"
@@ -36,6 +37,44 @@ class Contacts(SingletonModel):
 
     def __str__(self):
         return "Контакты"
+
+
+class Address(models.Model):
+    title = models.CharField(max_length=233, verbose_name='Название')
+    value = models.CharField(max_length=233, verbose_name='Адрес')
+    link = models.URLField(verbose_name='Ссылка на адрес')
+    contacts = models.ForeignKey(
+        Contacts,
+        on_delete=models.CASCADE,
+        related_name="addresses",
+        verbose_name="Контакты"
+    )
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Адрес'
+        verbose_name_plural = 'Адреса'
+
+
+class Socials(models.Model):
+    title = models.CharField(max_length=123, verbose_name='Название соц сети')
+    svg = models.FileField(upload_to='socials/', verbose_name='Изображение SVG')
+    link = models.URLField(verbose_name='Ссылка')
+    contacts = models.ForeignKey(
+        Contacts,
+        on_delete=models.CASCADE,
+        related_name="socials_ay",
+        verbose_name="Контакты"
+    )
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Социальня сеть'
+        verbose_name_plural = 'Социальные сети'
 
 
 class SalesOffice(models.Model):
@@ -54,6 +93,7 @@ class SalesOffice(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class RequisitesInSom(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
