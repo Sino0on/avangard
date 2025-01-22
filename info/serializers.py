@@ -26,12 +26,19 @@ class AddressesSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class SocialsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Socials
+        fields = '__all__'
+
+
 class ContactsSerializer(serializers.ModelSerializer):
     sales_offices = SalesOfficeSerializer(many=True, read_only=True)
     som_requisites = RequisitesInSomSerializer(many=True, read_only=True)
     dollar_requisites = RequisitesInDollarSerializer(many=True, read_only=True)
     home_addresses = AddressSerializer(many=True, source='addresss')
     address = AddressesSerializer(many=True, source='addresses')
+    socials = SocialsSerializer(many=True, source='socials_ay')
 
     class Meta:
         model = Contacts
@@ -42,6 +49,7 @@ class TechnicalBaseImageSerializer(serializers.ModelSerializer):
     class Meta:
         model = TechnicalBaseImage
         fields = ['image']
+
 
 class TechnicalBaseSerializer(serializers.ModelSerializer):
     images = TechnicalBaseImageSerializer(many=True, read_only=True)
