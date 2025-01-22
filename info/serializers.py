@@ -1,5 +1,7 @@
 from rest_framework import serializers
-from .models import Contacts, SalesOffice, RequisitesInSom, RequisitesInDollar, TechnicalBaseImage, TechnicalBase
+
+from home.serializers import AddressSerializer
+from .models import *
 
 
 class SalesOfficeSerializer(serializers.ModelSerializer):
@@ -17,14 +19,24 @@ class RequisitesInDollarSerializer(serializers.ModelSerializer):
         model = RequisitesInDollar
         fields = ['title', 'description']
 
+
+class AddressesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = '__all__'
+
+
 class ContactsSerializer(serializers.ModelSerializer):
     sales_offices = SalesOfficeSerializer(many=True, read_only=True)
     som_requisites = RequisitesInSomSerializer(many=True, read_only=True)
     dollar_requisites = RequisitesInDollarSerializer(many=True, read_only=True)
+    home_addresses = AddressSerializer(many=True, source='addresss')
+    addresses = AddressesSerializer(many=True, read_only=True, source='addresses')
 
     class Meta:
         model = Contacts
-        fields = ['addresses', 'requisites', 'sales_offices', 'som_requisites', 'dollar_requisites']
+        fields = "__all__"
+
 
 class TechnicalBaseImageSerializer(serializers.ModelSerializer):
     class Meta:
