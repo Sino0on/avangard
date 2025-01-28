@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Tender, MoreInfo, TenderApplication
+from .models import Tender, MoreInfo, TenderApplication, Vacancies, VacanciApplication
 
 
 class MoreInfoInline(admin.StackedInline):
@@ -15,9 +15,18 @@ class TenderAdmin(admin.ModelAdmin):
     search_fields = ("title", "mini_description")
     inlines = [MoreInfoInline]
 
+@admin.register(VacanciApplication)
+class VacanciAdmin(admin.ModelAdmin):
+    list_display = ("fullname", "created_at")
+    search_fields = ("fullname", "created_at")
+
+
 
 @admin.register(TenderApplication)
 class TenderApplicationAdmin(admin.ModelAdmin):
     list_display = ("company_name", "tender", "created_at")
     search_fields = ("company_name", "theme", "email")
     list_filter = ("created_at", "tender")
+
+
+admin.site.register(Vacancies)

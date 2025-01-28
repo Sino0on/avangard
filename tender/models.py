@@ -1,6 +1,8 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 
+from info.models import SingletonModel
+
 
 class Tender(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
@@ -59,3 +61,32 @@ class TenderApplication(models.Model):
 
     def __str__(self):
         return f"Заявка от {self.company_name} на тендер {self.tender.title}"
+
+
+class Vacancies(SingletonModel):
+    usloviya = RichTextField(verbose_name='Условия работы')
+    phone = models.CharField(max_length=123, verbose_name='Номер телефона')
+
+    def __str__(self):
+        return 'Вакансии'
+
+    class Meta:
+        verbose_name = "Вакансии"
+        verbose_name_plural = "Вакансии"
+
+
+class VacanciApplication(models.Model):
+    fullname = models.CharField(max_length=255, verbose_name="Название компании")
+    phone = models.CharField(max_length=123, verbose_name='Номер телефона')
+    email = models.EmailField(verbose_name="Электронная почта")
+    comment = models.TextField(verbose_name="Комментарий")
+    csv = models.FileField(upload_to='application_files/', verbose_name="Резюме")
+    created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+
+    class Meta:
+        verbose_name = "Заявка вакансии"
+        verbose_name_plural = "Заявки вакансии"
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"Заявка от {self.fullname}"

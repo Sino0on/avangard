@@ -30,3 +30,14 @@ class TenderApplicationSerializer(serializers.ModelSerializer):
             'phone_number', 'theme', 'comment', 'comment_file', 'created_at'
         ]
 
+
+class VacanciSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Vacancies
+        fields = '__all__'
+
+
+class VacanciApplicationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = VacanciApplication
+        fields = '__all__'
