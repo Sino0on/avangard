@@ -98,3 +98,17 @@ class ObjectsForHomeApiView(generics.ListAPIView):
     serializer_class = ObjectsForHomeSerializer
     permission_classes = [AllowAny]
     queryset = Building.objects.all()
+
+
+class BuildingThreeDDetailApiView(generics.RetrieveAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = ObjectsForHomeSerializer
+    queryset = Building.objects.all()
+    lookup_field = 'slug'
+
+    def get_queryset(self):
+        slug = self.kwargs.get('slug')
+        queryset = Building.objects.filter(slug=slug)
+        if not queryset.exists():
+            raise Http404("Категория не существует")
+        return queryset
