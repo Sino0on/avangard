@@ -1,3 +1,5 @@
+from idlelib.debugobj import ObjectTreeItem
+
 from django.http import Http404
 from django.shortcuts import render
 from drf_spectacular.types import OpenApiTypes
@@ -95,3 +97,4 @@ class ConstructionProgressApiView(generics.ListAPIView):
 class ObjectsForHomeApiView(generics.ListAPIView):
     serializer_class = ObjectsForHomeSerializer
     permission_classes = [AllowAny]
+    queryset = Building.objects.all()

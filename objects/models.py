@@ -54,6 +54,8 @@ class Building(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='Слаг')
     title = models.CharField(max_length=123, verbose_name='Название')
     mini_title = models.CharField(max_length=123, verbose_name='Серия')
+    threed = models.TextField(blank=True, null=True, verbose_name='3d')
+    bitrix = models.TextField(blank=True, null=True, verbose_name='Битрикс ссылка')
     status = models.CharField(max_length=123, choices=(
         ("active", "В процессе"),
         ("archive", "Архив"),

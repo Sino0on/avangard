@@ -202,5 +202,5 @@ class ConstructionProgressSerializer(serializers.ModelSerializer):
 
 class ObjectsForHomeSerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ['title', 'slug']
+        fields = ['title', 'slug', 'threed']
         model = Building
