@@ -18,6 +18,7 @@ class TenderDetailView(generics.RetrieveAPIView):
     queryset = Tender.objects.all()
     serializer_class = TenderDetailSerializer
     permission_classes = [AllowAny]
+    lookup_field = 'id'
 
 
 class CreateTenderApplicationView(generics.GenericAPIView):
