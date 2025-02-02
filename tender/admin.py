@@ -1,19 +1,26 @@
 from django.contrib import admin
-from .models import Tender, MoreInfo, TenderApplication, Vacancies, VacanciApplication
+from .models import Tender, MoreInfo, TenderApplication, Vacancies, VacanciApplication, Contacts, Requirement
 
 
-class MoreInfoInline(admin.StackedInline):
-    model = MoreInfo
+class ContactInline(admin.StackedInline):
+    model = Contacts
     extra = 1
-    verbose_name = "Дополнительная информация"
-    verbose_name_plural = "Дополнительная информация"
+    verbose_name = "Контакты"
+    verbose_name_plural = "Контакты"
+
+
+class RequerInline(admin.StackedInline):
+    model = Requirement
+    extra = 1
+    verbose_name = "Требование"
+    verbose_name_plural = "Требование"
 
 
 @admin.register(Tender)
 class TenderAdmin(admin.ModelAdmin):
     list_display = ("title", "created_at")
     search_fields = ("title", "mini_description")
-    inlines = [MoreInfoInline]
+    inlines = [ContactInline, RequerInline]
 
 @admin.register(VacanciApplication)
 class VacanciAdmin(admin.ModelAdmin):

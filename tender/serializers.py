@@ -11,7 +11,7 @@ class MoreInfoSerializer(serializers.ModelSerializer):
 class TenderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tender
-        fields = ['id', 'title', 'mini_description', 'created_at']
+        fields = ['id', 'title', 'mini_description', 'created_at', 'place']
 
 
 class TenderDetailSerializer(serializers.ModelSerializer):
@@ -19,7 +19,7 @@ class TenderDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Tender
-        fields = ['id', 'title', 'mini_description', 'description', 'created_at', 'more_info']
+        fields = '__all__'
 
 
 class TenderApplicationSerializer(serializers.ModelSerializer):
