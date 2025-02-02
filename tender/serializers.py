@@ -2,10 +2,16 @@ from rest_framework import serializers
 from .models import *
 
 
-class MoreInfoSerializer(serializers.ModelSerializer):
+class RequirementSerializer(serializers.ModelSerializer):
     class Meta:
-        model = MoreInfo
-        fields = ['id', 'title', 'link', 'file']
+        model = Requirement
+        fields = '__all__'
+
+
+class ContactSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contacts
+        fields = '__all__'
 
 
 class TenderSerializer(serializers.ModelSerializer):
@@ -15,7 +21,8 @@ class TenderSerializer(serializers.ModelSerializer):
 
 
 class TenderDetailSerializer(serializers.ModelSerializer):
-    more_info = MoreInfoSerializer(many=True, read_only=True, source='more_infos')
+    more_info = RequirementSerializer(many=True, read_only=True, source='requers')
+    contacts = ContactSerializer(many=True, read_only=True, source='contacts_tender')
 
     class Meta:
         model = Tender

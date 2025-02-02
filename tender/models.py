@@ -30,7 +30,7 @@ class Tender(models.Model):
 class Requirement(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название требования")
     quantity = models.PositiveIntegerField(verbose_name="Количество")
-    tender = models.ForeignKey(Tender, on_delete=models.CASCADE)
+    tender = models.ForeignKey(Tender, on_delete=models.CASCADE, related_name='requers')
 
     def __str__(self):
         return f"{self.name} - {self.quantity}"
@@ -39,7 +39,7 @@ class Requirement(models.Model):
 class Contacts(models.Model):
     title = models.CharField(max_length=255, verbose_name="Название")
     link = models.URLField(verbose_name="Ссылка")
-    tender = models.ForeignKey(Tender, on_delete=models.CASCADE)
+    tender = models.ForeignKey(Tender, on_delete=models.CASCADE, related_name='contacts_tender')
 
     def __str__(self):
         return f"{self.title}"
