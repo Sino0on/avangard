@@ -62,6 +62,7 @@ class Building(models.Model):
         ("ended", "Реализовано"),
     ), verbose_name='Статус')
     banner = models.FileField(upload_to='images/banners/', verbose_name="Видео")
+    banner_phones = models.FileField(upload_to='images/banners/', verbose_name="Видео", blank=True, null=True)
     banner_img = models.FileField(upload_to='images/banners/', blank=True, null=True, verbose_name="Изображение")
     imagepng = models.ImageField(upload_to='images/bgs/', blank=True, null=True, verbose_name="Изображение PNG")
     imagebg = models.ImageField(upload_to='images/bgs/', verbose_name="Фоновое изображение")
