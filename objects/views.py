@@ -106,12 +106,6 @@ class ThreeDDetailApiView(generics.RetrieveAPIView):
     queryset = ThreeD.objects.all()
     lookup_field = 'id'
 
-    def get_queryset(self):
-        slug = self.kwargs.get('slug')
-        queryset = Building.objects.filter(slug=slug)
-        if not queryset.exists():
-            raise Http404("Категория не существует")
-        return queryset
 
 
 class ThreedListViewApi(generics.ListAPIView):
