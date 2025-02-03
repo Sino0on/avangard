@@ -158,7 +158,7 @@ class Section12Serializer(serializers.ModelSerializer):
 
 class BuildingSerializer(serializers.ModelSerializer):
     about_complex = Section1Serializer(source='section_1')
-    threed = ThreeDSerializer(source='threedes')
+    threed = ThreeDSerializer(source='threedes', many=True)
     object_metrics = Section2Serializer(source='section_2')
     before_after = Section3Serializer(source='section_3')
     floor_plans = Section4Serializer(source='section_4')
