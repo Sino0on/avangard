@@ -1,4 +1,6 @@
 from django.contrib import admin
+from jazzmin.settings import THEMES
+
 from .models import *
 from django.utils.html import format_html
 import nested_admin
@@ -153,6 +155,7 @@ class Section9Admin(admin.ModelAdmin):
 
 
 admin.site.register(Advantage)
+admin.site.register(ThreeD)
 # admin.site.register(FloorSchema)
 
 
