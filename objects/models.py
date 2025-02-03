@@ -283,6 +283,7 @@ class ImageGallery(models.Model):
 
 class FloorSchema(models.Model):
     title = models.CharField(max_length=123, verbose_name="Название")
+    image = models.FileField(upload_to='images/buildings/', verbose_name="Изображение", blank=True, null=True)
     section4 = models.ForeignKey(Section4, related_name='section_floors', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
     def __str__(self):
