@@ -2,6 +2,11 @@ from rest_framework import serializers
 from .models import *
 
 
+class ThreeDSerializer(serializers.ModelSerializer):
+    class Meta:
+        fields = '__all__'
+        model = ThreeD
+
 class InterestingNearbySerializer(serializers.ModelSerializer):
     class Meta:
         model = InterestingNearby
@@ -153,6 +158,7 @@ class Section12Serializer(serializers.ModelSerializer):
 
 class BuildingSerializer(serializers.ModelSerializer):
     about_complex = Section1Serializer(source='section_1')
+    threed = ThreeDSerializer(source='threedes')
     object_metrics = Section2Serializer(source='section_2')
     before_after = Section3Serializer(source='section_3')
     floor_plans = Section4Serializer(source='section_4')
@@ -204,3 +210,4 @@ class ObjectsForHomeSerializer(serializers.ModelSerializer):
     class Meta:
         fields = ['title', 'slug', 'threed']
         model = Building
+

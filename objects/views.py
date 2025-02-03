@@ -100,11 +100,11 @@ class ObjectsForHomeApiView(generics.ListAPIView):
     queryset = Building.objects.all()
 
 
-class BuildingThreeDDetailApiView(generics.RetrieveAPIView):
+class ThreeDDetailApiView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
-    serializer_class = ObjectsForHomeSerializer
-    queryset = Building.objects.all()
-    lookup_field = 'slug'
+    serializer_class = ThreeDSerializer
+    queryset = ThreeD.objects.all()
+    lookup_field = 'id'
 
     def get_queryset(self):
         slug = self.kwargs.get('slug')
@@ -112,3 +112,9 @@ class BuildingThreeDDetailApiView(generics.RetrieveAPIView):
         if not queryset.exists():
             raise Http404("Категория не существует")
         return queryset
+
+
+class ThreedListViewApi(generics.ListAPIView):
+    permission_classes = (AllowAny,)
+    queryset = ThreeD.objects.all()
+    serializer_class = ThreeDSerializer

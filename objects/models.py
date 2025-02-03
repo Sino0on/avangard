@@ -54,7 +54,7 @@ class Building(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='Слаг')
     title = models.CharField(max_length=123, verbose_name='Название')
     mini_title = models.CharField(max_length=123, verbose_name='Серия')
-    threed = models.TextField(blank=True, null=True, verbose_name='3d')
+
     bitrix = models.TextField(blank=True, null=True, verbose_name='Битрикс ссылка')
     status = models.CharField(max_length=123, choices=(
         ("active", "В процессе"),
@@ -104,6 +104,15 @@ class Building(models.Model):
         ordering = ['priority']
         verbose_name = 'Объект'
         verbose_name_plural = 'Объекты'
+
+
+class ThreeD(models.Model):
+    title = models.CharField(max_length=123, verbose_name="Название", blank=True, null=True)
+    threed = models.TextField(blank=True, null=True, verbose_name='3d')
+    building = models.ForeignKey(Building, blank=True, null=True, on_delete=models.SET_NULL, related_name='threedes')
+
+    def __str__(self):
+        return f'{self.title}'
 
 
 class InterestingNearbyBuilding(models.Model):
