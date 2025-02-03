@@ -114,6 +114,10 @@ class ThreeD(models.Model):
     def __str__(self):
         return f'{self.title}'
 
+    class Meta:
+        verbose_name = '3д'
+        verbose_name_plural = '3д'
+
 
 class InterestingNearbyBuilding(models.Model):
     time = models.CharField(max_length=123, verbose_name="Время от обьекта")
