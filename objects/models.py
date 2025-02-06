@@ -258,8 +258,8 @@ class Section10(models.Model):
 
 
 class Section11(models.Model):
-    youtube_url = models.URLField(verbose_name="")
-    live_url = models.URLField(verbose_name="")
+    youtube_url = models.URLField(verbose_name="Ссылка на ютуб")
+    live_url = models.URLField(verbose_name="Ссылка на лайф стрим")
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_11', verbose_name="Объект")
 
     class Meta:
