@@ -2,6 +2,8 @@ from idlelib.debugobj import ObjectTreeItem
 
 from django.http import Http404
 from django.shortcuts import render
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from drf_spectacular.types import OpenApiTypes
 from drf_spectacular.utils import OpenApiParameter, extend_schema, extend_schema_view
 from rest_framework import generics
@@ -20,12 +22,20 @@ class BuildingListApiView(generics.ListAPIView):
     serializer_class = BuildingListSerializer
     queryset = Building.objects.filter(status='active').order_by('priority')
 
+    @method_decorator(cache_page(60 * 5))  # Кэширование на 5 минут
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 class BuildingDetailApiView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = BuildingSerializer
     queryset = Building.objects.all()
     lookup_field = 'slug'
+
+    @method_decorator(cache_page(60 * 5))  # Кэширование на 5 минут
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
     def get_queryset(self):
         category_id = self.request.GET.get('category_id')
@@ -99,12 +109,20 @@ class ObjectsForHomeApiView(generics.ListAPIView):
     permission_classes = [AllowAny]
     queryset = Building.objects.all()
 
+    @method_decorator(cache_page(60 * 5))  # Кэширование на 5 минут
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
+
 
 class ThreeDDetailApiView(generics.RetrieveAPIView):
     permission_classes = [AllowAny]
     serializer_class = ThreeDSerializer
     queryset = ThreeD.objects.all()
     lookup_field = 'id'
+
+    @method_decorator(cache_page(60 * 5))  # Кэширование на 5 минут
+    def dispatch(self, *args, **kwargs):
+        return super().dispatch(*args, **kwargs)
 
 
 
