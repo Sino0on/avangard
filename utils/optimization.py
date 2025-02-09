@@ -2,17 +2,19 @@ from django.db import models
 from PIL import Image
 import os
 
-def optimize_image(image_path, max_size=1024, quality=55):
+def optimize_image(image_field, max_size=1024, quality=85):
     """
     Оптимизирует изображение:
-    - Сжимает, если изображение больше max_size
+    - Уменьшает размер, если больше max_size
     - Сохраняет пропорции
     - Конвертирует в WebP
+    - Обновляет путь в Django ImageField
 
-    :param image_path: Путь к изображению
-    :param max_size: Максимальный размер (ширина или высота)
-    :param quality: Качество сохранения WebP (0-100)
+    :param image_field: Поле модели Django (например, instance.image)
+    :param max_size: Максимальная длина любой стороны (по умолчанию 1024px)
+    :param quality: Качество WebP (0-100)
     """
+    image_path = image_field.path
     img = Image.open(image_path)
 
     # Определяем текущий размер
@@ -27,10 +29,12 @@ def optimize_image(image_path, max_size=1024, quality=55):
             new_height = max_size
             new_width = int((max_size / height) * width)
 
-        img = img.resize((new_width, new_height), Image.LANCZOS)  # Масштабируем
+        img = img.resize((new_width, new_height), Image.LANCZOS)
 
-    # Меняем формат на WebP
-    webp_path = os.path.splitext(image_path)[0] + ".webp"
-    img.save(webp_path, "WEBP", quality=quality)  # Сжимаем
-    print('получилось')
-    return webp_path  # Возвращаем путь к WebP-файлу
+    # Меняем формат на WebP, но сохраняем структуру папок
+    webp_path = image_path.rsplit(".", 1)[0] + ".webp"  # Просто заменяем расширение
+    img.save(webp_path, "WEBP", quality=quality)  # Сжимаем и сохраняем
+
+    # Обновляем путь в Django ImageField
+    relative_path = os.path.relpath(webp_path, os.path.dirname(image_path))
+    image_field.name = os.path.join(os.path.dirname(image_field.name), relative_path)

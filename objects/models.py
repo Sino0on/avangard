@@ -19,10 +19,7 @@ class InterestingNearby(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.image.path)
-
-        # Обновляем путь к файлу в БД
-        self.image.name = os.path.basename(optimized_path)
+        optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -115,10 +112,7 @@ class Building(models.Model):
                 counter += 1
             self.slug = unique_slug
         super().save(*args, **kwargs)
-        optimized_path = optimize_image(self.banner_img.path)
-
-        # Обновляем путь к файлу в БД
-        self.banner_img.name = os.path.basename(optimized_path)
+        optimize_image(self.banner_img)
         super().save(*args, **kwargs)
 
     class Meta:
@@ -166,12 +160,8 @@ class Section1(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.first_image.path)
-        self.first_image.name = os.path.basename(optimized_path)
-        optimized_path = optimize_image(self.second_image.path)
-
-        # Обновляем путь к файлу в БД
-        self.second_image.name = os.path.basename(optimized_path)
+        optimize_image(self.first_image)
+        optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -199,12 +189,8 @@ class Section2(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.first_image.path)
-        self.first_image.name = os.path.basename(optimized_path)
-        optimized_path = optimize_image(self.second_image.path)
-
-        # Обновляем путь к файлу в БД
-        self.second_image.name = os.path.basename(optimized_path)
+        optimize_image(self.first_image)
+        optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
 
@@ -222,12 +208,8 @@ class Section3(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.day_image.path)
-        self.day_image.name = os.path.basename(optimized_path)
-        optimized_path = optimize_image(self.night_image.path)
-
-        # Обновляем путь к файлу в БД
-        self.night_image.name = os.path.basename(optimized_path)
+        optimize_image(self.day_image)
+        optimize_image(self.night_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -310,12 +292,8 @@ class Section10(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.location_image_first.path)
-        self.location_image_first.name = os.path.basename(optimized_path)
-        optimized_path = optimize_image(self.location_image_second.path)
-
-        # Обновляем путь к файлу в БД
-        self.location_image_second.name = os.path.basename(optimized_path)
+        optimize_image(self.location_image_first)
+        optimize_image(self.location_image_second)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -345,10 +323,7 @@ class Section12(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.image.path)
-
-        # Обновляем путь к файлу в БД
-        self.image.name = os.path.basename(optimized_path)
+        optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -364,10 +339,7 @@ class ImageGallery(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.image.path)
-
-        # Обновляем путь к файлу в БД
-        self.image.name = os.path.basename(optimized_path)
+        optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
 
@@ -379,11 +351,7 @@ class FloorSchema(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
-        # Оптимизируем изображение
-        optimized_path = optimize_image(self.image.path)
-
-        # Обновляем путь к файлу в БД
-        self.image.name = os.path.basename(optimized_path)
+        optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -403,10 +371,7 @@ class BlockInfo(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.image.path)
-
-        # Обновляем путь к файлу в БД
-        self.image.name = os.path.basename(optimized_path)
+        optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -426,10 +391,7 @@ class Architecture(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.image.path)
-
-        # Обновляем путь к файлу в БД
-        self.image.name = os.path.basename(optimized_path)
+        optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -517,10 +479,10 @@ class ParkingImages(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimized_path = optimize_image(self.under_parking_layout.path)
+        optimize_image(self.under_parking_layout)
 
         # Обновляем путь к файлу в БД
-        self.under_parking_layout.name = os.path.basename(optimized_path)
+        # self.under_parking_layout.name = os.path.basename(optimized_path)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
