@@ -350,8 +350,8 @@ class FloorSchema(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
-
-        optimize_image(self.image)
+        if self.image:
+            optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
