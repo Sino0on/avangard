@@ -89,7 +89,7 @@ class Section12Inline(admin.StackedInline):
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
-    exclude = ['slug']
+    # exclude = ['slug']
     inlines = [
         SectionInline,
         Section2Inline,
@@ -104,6 +104,7 @@ class BuildingAdmin(admin.ModelAdmin):
         Section11Inline,
         Section12Inline,
     ]
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class GalleryInline(admin.StackedInline):
