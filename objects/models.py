@@ -112,7 +112,8 @@ class Building(models.Model):
                 counter += 1
             self.slug = unique_slug
         super().save(*args, **kwargs)
-        optimize_image(self.banner_img)
+        if self.banner_img:
+            optimize_image(self.banner_img)
         super().save(*args, **kwargs)
 
     class Meta:
