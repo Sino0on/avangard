@@ -390,9 +390,9 @@ class Architecture(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
-
+        if self.image:
         # Оптимизируем изображение
-        optimize_image(self.image)
+            optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
