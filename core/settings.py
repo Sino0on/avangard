@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://avangard.sino0on.ru', 'https://www.avangard.sino0on.ru']
+CSRF_TRUSTED_ORIGINS = ['https://new.avangardstyle.kg', 'https://www.new.avangardstyle.kg']
 
 # Application definition
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     'rest_framework',
     "drf_spectacular",
+    'corsheaders',
     'objects',
     'news',
     'info',

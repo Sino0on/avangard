@@ -12,7 +12,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_display = ('title', 'created_at', 'slug', 'main_image')
     search_fields = ('title', 'description')
     inlines = [NewsImagesInline]  # Добавляем inline для изображений
-
+    prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         (None, {
             'fields': ('title', 'description', 'youtube_link', 'main_image')

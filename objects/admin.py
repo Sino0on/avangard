@@ -1,4 +1,6 @@
 from django.contrib import admin
+from jazzmin.settings import THEMES
+
 from .models import *
 from django.utils.html import format_html
 import nested_admin
@@ -87,7 +89,7 @@ class Section12Inline(admin.StackedInline):
 
 @admin.register(Building)
 class BuildingAdmin(admin.ModelAdmin):
-    exclude = ['slug']
+    # exclude = ['slug']
     inlines = [
         SectionInline,
         Section2Inline,
@@ -102,6 +104,7 @@ class BuildingAdmin(admin.ModelAdmin):
         Section11Inline,
         Section12Inline,
     ]
+    prepopulated_fields = {'slug': ('title',)}
 
 
 class GalleryInline(admin.StackedInline):
@@ -153,6 +156,7 @@ class Section9Admin(admin.ModelAdmin):
 
 
 admin.site.register(Advantage)
+admin.site.register(ThreeD)
 # admin.site.register(FloorSchema)
 
 
