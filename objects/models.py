@@ -347,6 +347,7 @@ class ImageGallery(models.Model):
 class FloorSchema(models.Model):
     title = models.CharField(max_length=123, verbose_name="Название")
     image = models.FileField(upload_to='images/buildings/', verbose_name="Изображение", blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
     section4 = models.ForeignKey(Section4, related_name='section_floors', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
     def save(self, *args, **kwargs):
@@ -361,12 +362,14 @@ class FloorSchema(models.Model):
     class Meta:
         verbose_name = 'Планировка блока'
         verbose_name_plural = 'Планировки блоков'
+        ordering = ['-created_at']
 
 
 class BlockInfo(models.Model):
     title = models.CharField(max_length=211, verbose_name="Название")
     image = models.FileField(upload_to='images/buildings/', verbose_name="Изображение")
     floorschema = models.ForeignKey(FloorSchema, related_name='floorschema_blocks', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Блоки")
+    created_at = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
@@ -381,6 +384,7 @@ class BlockInfo(models.Model):
     class Meta:
         verbose_name = 'Планы этажа'
         verbose_name_plural = 'Планы этажей'
+        ordering = ['-created_at']
 
 
 class Architecture(models.Model):
