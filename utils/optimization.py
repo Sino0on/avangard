@@ -3,7 +3,7 @@ import cairosvg
 from django.db import models
 from PIL import Image
 
-def optimize_image(image_field, max_size=1024, quality=95):
+def optimize_image(image_field, max_size=1424, quality=95):
     """
     Оптимизирует изображения:
     - SVG → Конвертирует в PNG, а затем в WebP (или JPEG/PNG)
