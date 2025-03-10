@@ -15,7 +15,7 @@ class NewsAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ('title',)}
     fieldsets = (
         (None, {
-            'fields': ('title', 'description', 'youtube_link', 'main_image')
+            'fields': ('title', 'slug', 'description', 'youtube_link', 'main_image')
         }),
     )
 
