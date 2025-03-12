@@ -1,5 +1,5 @@
 import os
-import cairosvg
+# import cairosvg
 from django.db import models
 from PIL import Image
 

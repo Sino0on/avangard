@@ -63,7 +63,7 @@ class Advantage(models.Model):
 class Building(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='Слаг')
     title = models.CharField(max_length=123, verbose_name='Название')
-    mini_title = models.CharField(max_length=123, verbose_name='Серия')
+    mini_title = models.CharField(max_length=123, verbose_name='Серия', blank=True, null=True)
 
     bitrix = models.TextField(blank=True, null=True, verbose_name='Битрикс ссылка')
     status = models.CharField(max_length=123, choices=(
@@ -71,17 +71,15 @@ class Building(models.Model):
         ("archive", "Архив"),
         ("ended", "Реализовано"),
     ), verbose_name='Статус')
-    banner = models.FileField(upload_to='images/banners/', verbose_name="Видео")
+    banner = models.FileField(upload_to='images/banners/', verbose_name="Видео", blank=True, null=True)
     banner_phones = models.FileField(upload_to='images/banners/', verbose_name="Видео на телефон", blank=True, null=True)
     banner_img = models.FileField(upload_to='images/banners/', blank=True, null=True, verbose_name="Изображение")
     imagepng = models.ImageField(upload_to='images/bgs/', blank=True, null=True, verbose_name="Изображение PNG")
-    imagebg = models.ImageField(upload_to='images/bgs/', verbose_name="Фоновое изображение")
-    buklet = models.FileField(upload_to='files/buklets/', verbose_name="Буклет")
+    imagebg = models.ImageField(upload_to='images/bgs/', verbose_name="Фоновое изображение", blank=True, null=True)
+    buklet = models.FileField(upload_to='files/buklets/', verbose_name="Буклет", blank=True, null=True)
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="Категория")
-    is_new = models.BooleanField(default=False, verbose_name="Новинка")
-    priority = models.IntegerField(verbose_name="Приоритетность")
-
-
+    is_new = models.BooleanField(default=False, verbose_name="Новинка", blank=True)
+    priority = models.IntegerField(verbose_name="Приоритетность", blank=True, null=True)
 
     # section 1
 
@@ -114,6 +112,9 @@ class Building(models.Model):
         super().save(*args, **kwargs)
         if self.banner_img:
             optimize_image(self.banner_img)
+        if self.priority is None:
+            max_priority = Building.objects.aggregate(models.Max('priority'))['priority__max']
+            self.priority = (max_priority or 0) + 1  # Если записей нет, начнёт с 1
         super().save(*args, **kwargs)
 
     class Meta:
