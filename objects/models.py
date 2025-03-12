@@ -286,8 +286,8 @@ class Section9(models.Model):
 class Section10(models.Model):
     location_description = models.TextField(verbose_name="Описание локации")
     location_iframe_url = models.TextField(verbose_name="Ссылка адреса")
-    location_image_first = models.FileField(upload_to='images/buildings/', verbose_name="Первое изображение")
-    location_image_second = models.FileField(upload_to='images/buildings/', verbose_name="Второе изображение")
+    location_image_first = models.FileField(upload_to='images/buildings/', verbose_name="Первое изображение", blank=True, null=True)
+    location_image_second = models.FileField(upload_to='images/buildings/', verbose_name="Второе изображение", blank=True, null=True)
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_10', verbose_name="Объект")
 
     def save(self, *args, **kwargs):
