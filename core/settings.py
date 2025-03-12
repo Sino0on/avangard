@@ -207,11 +207,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+# STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATIC_URL = "/static/"
 
 # Extra places for collectstatic to find static files.
-# STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
@@ -241,16 +241,16 @@ JAZZMIN_SETTINGS = {
     "site_logo": "logo/logo.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    "login_logo": 'logo/logo.png',
+    "login_logo": 'logo/logo.svg',
 
     # Logo to use for login form in dark themes (defaults to login_logo)
-    "login_logo_dark": 'logo/logo.png',
+    "login_logo_dark": 'logo/logo.jpg',
 
     # CSS classes that are applied to the logo above
     "site_logo_classes": "img-cube",
 
     # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
-    "site_icon": 'logo/logo.png',
+    "site_icon": 'logo/logo.svg',
 
     # Welcome text on the login screen
     "welcome_sign": "Добро пожаловать!",
