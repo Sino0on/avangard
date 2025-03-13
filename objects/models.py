@@ -294,8 +294,10 @@ class Section10(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.location_image_first)
-        optimize_image(self.location_image_second)
+        if self.location_image_first:
+            optimize_image(self.location_image_first)
+        if self.location_image_second:
+            optimize_image(self.location_image_second)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
