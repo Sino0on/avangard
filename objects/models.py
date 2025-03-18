@@ -339,6 +339,7 @@ class Section12(models.Model):
 
 class ImageGallery(models.Model):
     image = models.ImageField(upload_to='images/gallery/', verbose_name="Изображение")
+    created_at = models.DateTimeField(blank=True, null=True)
     section7 = models.ForeignKey(Section7, related_name='section_images', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
     def save(self, *args, **kwargs):
@@ -347,6 +348,9 @@ class ImageGallery(models.Model):
         # Оптимизируем изображение
         optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
+
+    class Meta:
+        ordering = '-created_at'
 
 
 class FloorSchema(models.Model):
