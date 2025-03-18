@@ -162,8 +162,10 @@ class Section1(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.first_image)
-        optimize_image(self.second_image)
+        if self.first_image:
+            optimize_image(self.first_image)
+        if self.second_image:
+            optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
