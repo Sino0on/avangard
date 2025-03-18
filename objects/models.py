@@ -350,7 +350,7 @@ class ImageGallery(models.Model):
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
-        ordering = '-created_at'
+        ordering = ['-created_at']
 
 
 class FloorSchema(models.Model):
