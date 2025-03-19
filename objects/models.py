@@ -203,6 +203,19 @@ class Section2(models.Model):
         verbose_name_plural = 'В цифрах'
 
 
+class Numeric(models.Model):
+    title = models.CharField(max_length=255, verbose_name='название')
+    value = models.CharField(max_length=255, verbose_name='значение')
+    section2 = models.ForeignKey(Section2, on_delete=models.CASCADE, related_name="section_numerics")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        ordering = ['-created_at']
+
+
 class Section3(models.Model):
     day_image = models.ImageField(upload_to='images/buildings/', verbose_name="Дневное изображение")
     night_image = models.ImageField(upload_to='images/buildings/', verbose_name="Ночное изображение")

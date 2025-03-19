@@ -155,6 +155,16 @@ class Section9Admin(admin.ModelAdmin):
     ]
 
 
+class NumericInline(admin.StackedInline):
+    model = Numeric
+    extra = 1
+
+@admin.register(Section2)
+class FloorSchemaAdmin(admin.ModelAdmin):
+    inlines = [
+        NumericInline,
+    ]
+
 admin.site.register(Advantage)
 admin.site.register(ThreeD)
 # admin.site.register(FloorSchema)
