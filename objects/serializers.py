@@ -85,7 +85,15 @@ class Section1Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class NumericSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Numeric
+        fields = '__all__'
+
+
 class Section2Serializer(serializers.ModelSerializer):
+    numerics = NumericSerializer(many=True, source='section_numerics')
+
     class Meta:
         model = Section2
         fields = '__all__'
