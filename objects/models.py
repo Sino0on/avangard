@@ -189,6 +189,9 @@ class Section2(models.Model):
     first_image = models.ImageField(upload_to='images', verbose_name="Первое изображение")
     second_image = models.ImageField(upload_to='images', verbose_name="Второе изображение")
 
+    def __str__(self):
+        return f'{self.building}'
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
