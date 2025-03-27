@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from unidecode import unidecode
 from django.utils.functional import cached_property
 
-from utils.optimization import optimize_image
+# from utils.optimization import optimize_image
 
 
 class InterestingNearby(models.Model):
@@ -19,7 +19,7 @@ class InterestingNearby(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -110,8 +110,8 @@ class Building(models.Model):
                 counter += 1
             self.slug = unique_slug
         super().save(*args, **kwargs)
-        if self.banner_img:
-            optimize_image(self.banner_img)
+        # if self.banner_img:
+        #     optimize_image(self.banner_img)
         if self.priority is None:
             max_priority = Building.objects.aggregate(models.Max('priority'))['priority__max']
             self.priority = (max_priority or 0) + 1  # Если записей нет, начнёт с 1
@@ -161,11 +161,11 @@ class Section1(models.Model):
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
-        # Оптимизируем изображение
-        if self.first_image:
-            optimize_image(self.first_image)
-        if self.second_image:
-            optimize_image(self.second_image)
+        # # Оптимизируем изображение
+        # if self.first_image:
+        #     # optimize_image(self.first_image)
+        # if self.second_image:
+        #     # optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -196,8 +196,8 @@ class Section2(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.first_image)
-        optimize_image(self.second_image)
+        # optimize_image(self.first_image)
+        # optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
 
@@ -228,8 +228,8 @@ class Section3(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.day_image)
-        optimize_image(self.night_image)
+        # optimize_image(self.day_image)
+        # optimize_image(self.night_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -312,10 +312,10 @@ class Section10(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        if self.location_image_first:
-            optimize_image(self.location_image_first)
-        if self.location_image_second:
-            optimize_image(self.location_image_second)
+        # if self.location_image_first:
+        #     # optimize_image(self.location_image_first)
+        # if self.location_image_second:
+        #     # optimize_image(self.location_image_second)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -345,7 +345,7 @@ class Section12(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -362,7 +362,7 @@ class ImageGallery(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -377,8 +377,8 @@ class FloorSchema(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
-        if self.image:
-            optimize_image(self.image)
+        # if self.image:
+        #     # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -400,7 +400,7 @@ class BlockInfo(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -419,9 +419,9 @@ class Architecture(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
-        if self.image:
+        # if self.image:
         # Оптимизируем изображение
-            optimize_image(self.image)
+            # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -509,7 +509,7 @@ class ParkingImages(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.under_parking_layout)
+        # optimize_image(self.under_parking_layout)
 
         # Обновляем путь к файлу в БД
         # self.under_parking_layout.name = os.path.basename(optimized_path)
