@@ -14,5 +14,5 @@ urlpatterns = [
     path("api/v1/tender/", include("tender.urls")),
     path('admin/', admin.site.urls),
     # path("i18n/", include("django.conf.urls.i18n")),
-    path("docs/", include("openapi.urls")),
+    path("api/v1/docs/", include("openapi.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
