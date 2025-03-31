@@ -107,7 +107,7 @@ class VacanciApplication(models.Model):
     phone = models.CharField(max_length=123, verbose_name='Номер телефона')
     email = models.EmailField(verbose_name="Электронная почта")
     comment = models.TextField(verbose_name="Комментарий")
-    csv = models.FileField(upload_to='application_files/', verbose_name="Резюме")
+    csv = models.FileField(upload_to='application_files/', verbose_name="Резюме", blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
 
     class Meta:
