@@ -189,7 +189,7 @@ class BuildingListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Building
-        fields = ['slug', 'title', 'imagepng', 'imagebg', 'info', 'mini_title', 'is_new', 'banner_img']
+        fields = ['slug', 'title', 'imagepng', 'imagebg', 'info', 'mini_title', 'is_new', 'banner_img', 'mini_description']
 
 
 class BuildingEndedSerializer(serializers.ModelSerializer):

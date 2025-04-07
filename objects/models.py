@@ -63,6 +63,7 @@ class Advantage(models.Model):
 class Building(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='Слаг')
     title = models.CharField(max_length=123, verbose_name='Название')
+    mini_description = models.CharField(max_length=80, blank=True, null=True, verbose_name='Мини описание')
     mini_title = models.CharField(max_length=123, verbose_name='Серия', blank=True, null=True)
 
     bitrix = models.TextField(blank=True, null=True, verbose_name='Битрикс ссылка')
