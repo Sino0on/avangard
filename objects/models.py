@@ -154,9 +154,9 @@ class Section1(models.Model):
     second_image = models.ImageField(upload_to='images/buildings/', verbose_name="Второе изображение", blank=True, null=True)
     description = models.TextField(verbose_name="Описание")
     address = models.CharField(max_length=123, verbose_name="Адрес", blank=True, null=True)
-    max_blocks = models.IntegerField(verbose_name="Блоки", blank=True, null=True)
+    max_blocks = models.CharField(verbose_name="Блоки", blank=True, null=True)
     building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_1', verbose_name="Объект", blank=True, null=True)
-    max_apartment = models.IntegerField(verbose_name="Аппартаменты", blank=True, null=True)
+    max_apartment = models.CharField(verbose_name="Аппартаменты", blank=True, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
