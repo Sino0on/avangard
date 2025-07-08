@@ -28,3 +28,11 @@ class Address(models.Model):
 
     def __str__(self):
         return f"{self.title}"
+
+
+class AddressFooter(models.Model):
+    link = models.URLField()
+    title = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.title}"

@@ -16,3 +16,9 @@ class GetHomeInfoApi(generics.GenericAPIView):
         serializer = HomeInfoSerializer(contact, context={'request': request})
         return Response(serializer.data)
 
+
+class GetAddressesFooter(generics.ListAPIView):
+    permission_classes = [AllowAny]
+    serializer_class = AddressFooterSerializer
+    queryset = AddressFooter.objects.all()
+
