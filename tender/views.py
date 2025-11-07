@@ -21,17 +21,13 @@ class TenderDetailView(generics.RetrieveAPIView):
     lookup_field = 'id'
 
 
-class CreateTenderApplicationView(generics.GenericAPIView):
+class CreateTenderApplicationView(generics.CreateAPIView):
     serializer_class = TenderApplicationSerializer
     permission_classes = [AllowAny]
 
-    def post(self, request, id):
-        tender = get_object_or_404(pk=id)
-        serializer = TenderApplicationSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save(tender=tender)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    def perform_create(self, serializer):
+        tender = get_object_or_404(Tender, pk=self.kwargs['id'])
+        serializer.save(tender=tender)
 
 
 class VacanciView(GenericAPIView):
@@ -45,5 +41,5 @@ class VacanciView(GenericAPIView):
 
 
 class VacanciApplicationView(generics.CreateAPIView):
-    serializer_class = VacanciApplication
+    serializer_class = VacanciApplicationSerializer
     permission_classes = [AllowAny]

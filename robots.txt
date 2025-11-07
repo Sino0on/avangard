@@ -1,0 +1,27 @@
+User-agent: *
+Allow: /
+Allow: /about
+Allow: /all-objects
+Allow: /contacts
+Allow: /news
+Allow: /technical-base
+Allow: /smi
+Allow: /procurement
+Allow: /vacancies
+Allow: /completed-projects
+Allow: /construction-progress
+
+# Разрешаем основные страницы с параметрами, но с осторожностью
+Allow: /news-detail/
+Allow: /finished-project-detail/
+Allow: /object-detail/
+Allow: /procurement/
+Allow: /3d-tour/
+
+# Запрещаем дублирующиеся или служебные страницы, если есть необходимость
+# Например, если есть админ-панель или другие скрытые роуты
+Disallow: /admin/
+Disallow: /*?*  # Запрещаем индексацию страниц с GET-параметрами, если они есть
+
+# Карта сайта (если есть)
+# Sitemap: https://yourdomain.com/sitemap.xml

@@ -7,7 +7,7 @@ from django.utils.text import slugify
 from unidecode import unidecode
 from django.utils.functional import cached_property
 
-from utils.optimization import optimize_image
+# from utils.optimization import optimize_image
 
 
 class InterestingNearby(models.Model):
@@ -19,7 +19,7 @@ class InterestingNearby(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -63,6 +63,7 @@ class Advantage(models.Model):
 class Building(models.Model):
     slug = models.SlugField(max_length=255, unique=True, blank=True, null=True, verbose_name='Слаг')
     title = models.CharField(max_length=123, verbose_name='Название')
+    mini_description = models.CharField(max_length=80, blank=True, null=True, verbose_name='Мини описание')
     mini_title = models.CharField(max_length=123, verbose_name='Серия', blank=True, null=True)
 
     bitrix = models.TextField(blank=True, null=True, verbose_name='Битрикс ссылка')
@@ -111,8 +112,8 @@ class Building(models.Model):
                 counter += 1
             self.slug = unique_slug
         super().save(*args, **kwargs)
-        if self.banner_img:
-            optimize_image(self.banner_img)
+        # if self.banner_img:
+        #     optimize_image(self.banner_img)
         if self.priority is None:
             max_priority = Building.objects.aggregate(models.Max('priority'))['priority__max']
             self.priority = (max_priority or 0) + 1  # Если записей нет, начнёт с 1
@@ -151,20 +152,22 @@ class InterestingNearbyBuilding(models.Model):
 
 
 class Section1(models.Model):
-    first_image = models.ImageField(upload_to='images/buildings/', verbose_name="Первое изображение")
-    second_image = models.ImageField(upload_to='images/buildings/', verbose_name="Второе изображение")
+    first_image = models.ImageField(upload_to='images/buildings/', verbose_name="Первое изображение", blank=True, null=True)
+    second_image = models.ImageField(upload_to='images/buildings/', verbose_name="Второе изображение", blank=True, null=True)
     description = models.TextField(verbose_name="Описание")
-    address = models.CharField(max_length=123, verbose_name="Адрес")
-    max_blocks = models.IntegerField(verbose_name="Блоки")
-    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_1', verbose_name="Объект")
-    max_apartment = models.IntegerField(verbose_name="Аппартаменты")
+    address = models.CharField(max_length=123, verbose_name="Адрес", blank=True, null=True)
+    max_blocks = models.CharField(verbose_name="Блоки, Резиденции", blank=True, null=True)
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='section_1', verbose_name="Объект", blank=True, null=True)
+    max_apartment = models.CharField(verbose_name="Аппартаменты", blank=True, null=True)
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
-        # Оптимизируем изображение
-        optimize_image(self.first_image)
-        optimize_image(self.second_image)
+        # # Оптимизируем изображение
+        # if self.first_image:
+        #     # optimize_image(self.first_image)
+        # if self.second_image:
+        #     # optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -188,18 +191,34 @@ class Section2(models.Model):
     first_image = models.ImageField(upload_to='images', verbose_name="Первое изображение")
     second_image = models.ImageField(upload_to='images', verbose_name="Второе изображение")
 
+    def __str__(self):
+        return f'{self.building}'
+
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.first_image)
-        optimize_image(self.second_image)
+        # optimize_image(self.first_image)
+        # optimize_image(self.second_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
 
     class Meta:
         verbose_name = 'В цифрах'
         verbose_name_plural = 'В цифрах'
+
+
+class Numeric(models.Model):
+    title = models.CharField(max_length=255, verbose_name='название')
+    value = models.CharField(max_length=255, verbose_name='значение')
+    section2 = models.ForeignKey(Section2, on_delete=models.CASCADE, related_name="section_numerics")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class Section3(models.Model):
@@ -211,8 +230,8 @@ class Section3(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.day_image)
-        optimize_image(self.night_image)
+        # optimize_image(self.day_image)
+        # optimize_image(self.night_image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -295,10 +314,10 @@ class Section10(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        if self.location_image_first:
-            optimize_image(self.location_image_first)
-        if self.location_image_second:
-            optimize_image(self.location_image_second)
+        # if self.location_image_first:
+        #     # optimize_image(self.location_image_first)
+        # if self.location_image_second:
+        #     # optimize_image(self.location_image_second)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -328,7 +347,7 @@ class Section12(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     class Meta:
@@ -338,14 +357,18 @@ class Section12(models.Model):
 
 class ImageGallery(models.Model):
     image = models.ImageField(upload_to='images/gallery/', verbose_name="Изображение")
+    created_at = models.DateTimeField(blank=True, null=True)
     section7 = models.ForeignKey(Section7, related_name='section_images', on_delete=models.CASCADE, blank=True, null=True, verbose_name="Объект")
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
+
+    class Meta:
+        ordering = ['-created_at']
 
 
 class FloorSchema(models.Model):
@@ -356,8 +379,8 @@ class FloorSchema(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
-        if self.image:
-            optimize_image(self.image)
+        # if self.image:
+        #     # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -379,7 +402,7 @@ class BlockInfo(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.image)
+        # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -398,9 +421,9 @@ class Architecture(models.Model):
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)  # Сохраняем оригинал
-        if self.image:
+        # if self.image:
         # Оптимизируем изображение
-            optimize_image(self.image)
+            # optimize_image(self.image)
         super().save(*args, **kwargs)  # Сохраняем снова
 
     def __str__(self):
@@ -488,7 +511,7 @@ class ParkingImages(models.Model):
         super().save(*args, **kwargs)  # Сохраняем оригинал
 
         # Оптимизируем изображение
-        optimize_image(self.under_parking_layout)
+        # optimize_image(self.under_parking_layout)
 
         # Обновляем путь к файлу в БД
         # self.under_parking_layout.name = os.path.basename(optimized_path)

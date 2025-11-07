@@ -16,8 +16,9 @@ class News(models.Model):
         verbose_name="Ссылка на YouTube"
     )
     created_at = models.DateTimeField(
-        auto_now_add=True,
-        verbose_name="Дата создания"
+        verbose_name="Дата создания",
+        blank=True,
+        null=True
     )
     slug = models.SlugField(
         unique=True,
