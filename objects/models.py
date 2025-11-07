@@ -80,6 +80,7 @@ class Building(models.Model):
     category = models.ForeignKey(Category, on_delete=models.PROTECT, verbose_name="Категория")
     is_new = models.BooleanField(default=False, verbose_name="Новинка", blank=True)
     priority = models.IntegerField(verbose_name="Приоритетность", blank=True, null=True)
+    domain = models.CharField(max_length=123, verbose_name='Доменное имя', blank=True, null=True)
 
     # section 1
 
