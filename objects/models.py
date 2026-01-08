@@ -66,6 +66,7 @@ class Building(models.Model):
     mini_description = models.CharField(max_length=80, blank=True, null=True, verbose_name='Мини описание')
     mini_title = models.CharField(max_length=123, verbose_name='Серия', blank=True, null=True)
 
+    logo = models.FileField(upload_to='images/logos/', verbose_name="Логотип", blank=True, null=True)
     bitrix = models.TextField(blank=True, null=True, verbose_name='Битрикс ссылка')
     status = models.CharField(max_length=123, choices=(
         ("active", "В процессе"),
