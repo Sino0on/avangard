@@ -11,13 +11,6 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name="building",
-            name="domain",
-            field=models.CharField(
-                blank=True, max_length=123, null=True, verbose_name="Доменное имя"
-            ),
-        ),
-        migrations.AddField(
-            model_name="building",
             name="logo",
             field=models.FileField(
                 blank=True, null=True, upload_to="images/logos/", verbose_name="Логотип"
