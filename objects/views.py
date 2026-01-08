@@ -20,7 +20,7 @@ from .serializers import *
 class BuildingListApiView(generics.ListAPIView):
     permission_classes = [AllowAny]
     serializer_class = BuildingListSerializer
-    queryset = Building.objects.filter(status='active', domain__isnull=True).order_by('priority')
+    queryset = Building.objects.filter(status='active').order_by('priority')
 
     @method_decorator(cache_page(60 * 5))  # Кэширование на 5 минут
     def dispatch(self, *args, **kwargs):
