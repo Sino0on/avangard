@@ -164,6 +164,11 @@ class Section12Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class RequisitesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Requisites
+        fields = '__all__'
+
 class BuildingSerializer(serializers.ModelSerializer):
     about_complex = Section1Serializer(source='section_1')
     threed = ThreeDSerializer(source='threedes', many=True)
@@ -178,6 +183,7 @@ class BuildingSerializer(serializers.ModelSerializer):
     location = Section10Serializer(source='section_10')
     footer = Section11Serializer(source='section_11')
     numeration = Section12Serializer(source='section_12')
+    requisites = RequisitesSerializer(source='requisite')
 
     class Meta:
         model = Building

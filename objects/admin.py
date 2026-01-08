@@ -254,3 +254,56 @@ class ConstructionProgressAdmin(admin.ModelAdmin):
         if db_field.name == "month":
             kwargs['choices'] = ConstructionProgress.MONTH_CHOICES
         return super().formfield_for_choice_field(db_field, request, **kwargs)
+
+
+# Inline для Офисов продаж
+class SalesOfficeInline(admin.TabularInline):
+    model = SalesOfficeBuilding
+    extra = 1  # Количество пустых строк для добавления новых офисов
+    fields = ['name', 'description']
+    verbose_name = "Офис продаж"
+    verbose_name_plural = "Офисы продаж"
+
+# Inline для Реквизитов в сомах
+class RequisitesInSomInline(admin.TabularInline):
+    model = RequisitesInSomBuilding
+    extra = 1  # Количество пустых строк для добавления новых реквизитов
+    fields = ['title', 'description']
+    verbose_name = "Реквизиты в сомах"
+    verbose_name_plural = "Реквизиты в сомах"
+
+# Inline для Реквизитов в долларах
+class RequisitesInDollarInline(admin.TabularInline):
+    model = RequisitesInDollarBuilding
+    extra = 1  # Количество пустых строк для добавления новых реквизитов
+    fields = ['title', 'description']
+    verbose_name = "Реквизиты в долларах"
+    verbose_name_plural = "Реквизиты в долларах"
+
+
+class SocialsInline(admin.TabularInline):
+    model = SocialBuilding
+    extra = 1  # Количество пустых строк для добавления новых изображений
+    # fields = '__all__'
+    verbose_name = "Социальная сеть"
+    verbose_name_plural = "Социальная сеть"
+
+
+class AddressInline(admin.TabularInline):
+    model = AddressBuilding
+    extra = 1  # Количество пустых строк для добавления новых изображений
+    # fields = '__all__'
+    verbose_name = "Адрес"
+    verbose_name_plural = "Адреса"
+
+
+# Админка для Контактов с inlines
+@admin.register(Requisites)
+class RequisitesAdmin(admin.ModelAdmin):
+    # list_display = ("addresses", "requisites")
+    inlines = [SalesOfficeInline, RequisitesInSomInline, RequisitesInDollarInline, SocialsInline, AddressInline]
+    # fieldsets = (
+    #     (None, {
+    #         "fields": ("addresses", "requisites")
+    #     }),
+    # )

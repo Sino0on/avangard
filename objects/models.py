@@ -536,3 +536,83 @@ class Apartments(models.Model):
     class Meta:
         verbose_name = 'Квартиры'
         verbose_name_plural = 'Квартиры'
+
+
+class Requisites(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название компании", blank=True, default='ОсОО «Строительная компания «Авангард стиль»')
+    inn = models.CharField(max_length=123, verbose_name='ИНН', default='00412199810063 999 УГКНС ККН')
+    okpo = models.CharField(max_length=123, verbose_name='ОКПО', default='22116708')
+    building = models.OneToOneField(Building, on_delete=models.CASCADE, related_name='requisite', verbose_name='Здание')
+
+    class Meta:
+        verbose_name = "Реквизиты"
+        verbose_name_plural = "Реквизиты"
+
+    def __str__(self):
+        return "Реквизиты"
+
+
+class AddressBuilding(models.Model):
+    title = models.CharField(max_length=233, verbose_name='Название')
+    value = models.CharField(max_length=233, verbose_name='Адрес')
+    link = models.URLField(verbose_name='Ссылка на адрес')
+    building = models.ForeignKey(Requisites, on_delete=models.CASCADE, related_name='addresses', verbose_name='Здание')
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Адрес'
+        verbose_name_plural = 'Адреса'
+
+
+class SocialBuilding(models.Model):
+    title = models.CharField(max_length=123, verbose_name='Название соц сети')
+    svg = models.FileField(upload_to='socials/', verbose_name='Изображение SVG')
+    link = models.URLField(verbose_name='Ссылка')
+    building = models.ForeignKey(Requisites, on_delete=models.CASCADE, related_name='socials', verbose_name='Здание')
+
+    def __str__(self):
+        return f'{self.title}'
+
+    class Meta:
+        verbose_name = 'Социальня сеть'
+        verbose_name_plural = 'Социальные сети'
+
+
+class SalesOfficeBuilding(models.Model):
+    name = models.CharField(max_length=255, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    building = models.ForeignKey(Requisites, on_delete=models.CASCADE, related_name='sales_offices', verbose_name='Здание')
+
+    class Meta:
+        verbose_name = "Офис продаж"
+        verbose_name_plural = "Офисы продаж"
+
+    def __str__(self):
+        return self.name
+
+
+class RequisitesInSomBuilding(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    building = models.ForeignKey(Requisites, on_delete=models.CASCADE, related_name='som_requisites', verbose_name='Здание')
+
+    class Meta:
+        verbose_name = "Реквизиты в сомах"
+        verbose_name_plural = "Реквизиты в сомах"
+
+    def __str__(self):
+        return self.title
+
+class RequisitesInDollarBuilding(models.Model):
+    title = models.CharField(max_length=255, verbose_name="Название")
+    description = models.TextField(verbose_name="Описание")
+    building = models.ForeignKey(Requisites, on_delete=models.CASCADE, related_name='dollar_requisites', verbose_name='Здание')
+
+    class Meta:
+        verbose_name = "Реквизиты в долларах"
+        verbose_name_plural = "Реквизиты в долларах"
+
+    def __str__(self):
+        return self.title
