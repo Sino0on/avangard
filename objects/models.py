@@ -549,7 +549,7 @@ class Requisites(models.Model):
         verbose_name_plural = "Реквизиты"
 
     def __str__(self):
-        return "Реквизиты"
+        return f'{self.building}'
 
 
 class AddressBuilding(models.Model):
