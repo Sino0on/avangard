@@ -164,7 +164,43 @@ class Section12Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class AddressBuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AddressBuilding
+        fields = '__all__'
+
+
+class SalesOfficeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SalesOfficeBuilding
+        fields = '__all__'
+
+
+class RequisitesInSomBuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequisitesInSomBuilding
+        fields = '__all__'
+
+
+class RequisitesInDollarBuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RequisitesInDollarBuilding
+        fields = '__all__'
+
+
+class SocialBuildingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = SocialBuilding
+        fields = '__all__'
+
+
 class RequisitesSerializer(serializers.ModelSerializer):
+    addresses = AddressBuildingSerializer(many=True, source='addresses')
+    sales_office = SalesOfficeSerializer(many=True, source='sales_offices')
+    som_requisites = RequisitesInSomBuildingSerializer(many=True, source='som_requisites')
+    dollar_requisites = RequisitesInDollarBuildingSerializer(many=True, source='dollar_requisites')
+    socials = SocialBuildingSerializer(many=True, source='socials')
+
     class Meta:
         model = Requisites
         fields = '__all__'

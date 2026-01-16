@@ -28,7 +28,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-CSRF_TRUSTED_ORIGINS = ['https://avangardstyle.kg', 'https://www.avangardstyle.kg']
+# CSRF_TRUSTED_ORIGINS = ['https://avangardstyle.kg', 'https://www.avangardstyle.kg']
 
 # Application definition
 
