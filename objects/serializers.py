@@ -195,11 +195,11 @@ class SocialBuildingSerializer(serializers.ModelSerializer):
 
 
 class RequisitesSerializer(serializers.ModelSerializer):
-    addresses = AddressBuildingSerializer(many=True, source='addresses')
-    sales_office = SalesOfficeSerializer(many=True, source='sales_offices')
-    som_requisites = RequisitesInSomBuildingSerializer(many=True, source='som_requisites')
-    dollar_requisites = RequisitesInDollarBuildingSerializer(many=True, source='dollar_requisites')
-    socials = SocialBuildingSerializer(many=True, source='socials')
+    addresses_field = AddressBuildingSerializer(many=True, source='addresses')
+    sales_office_field = SalesOfficeSerializer(many=True, source='sales_offices')
+    som_requisites_field = RequisitesInSomBuildingSerializer(many=True, source='som_requisites')
+    dollar_requisites_field = RequisitesInDollarBuildingSerializer(many=True, source='dollar_requisites')
+    socials_field = SocialBuildingSerializer(many=True, source='socials')
 
     class Meta:
         model = Requisites
